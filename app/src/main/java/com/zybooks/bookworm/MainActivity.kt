@@ -39,9 +39,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BookwormApp() {
-    // Sort books by rating, and then by date (both descending)
-    val sortedBooks = sampleBooks.sortedWith(compareByDescending<Book> { it.userRating }
-        .thenByDescending { it.dateAdded })
+    val sortedBooks = sampleBooks.sortedWith(
+        compareByDescending<Book> { it.userRating }
+            .thenByDescending { it.dateAdded }
+    )
+    val topBooks = sortedBooks.take(3) // Take the top 3 books
 
     BookwormTheme {
         Scaffold(
@@ -49,23 +51,33 @@ fun BookwormApp() {
                 BookwormHeader()
             },
             floatingActionButton = {
-                Row(
-                    modifier = Modifier.padding(16.dp),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    FloatingActionButton(onClick = { /* TODO: Add book action */ }) {
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
-                    }
-                    Spacer(modifier = Modifier.width(16.dp))
-                    FloatingActionButton(onClick = { /* TODO: Edit book action */ }) {
-                        Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
-                    }
-                }
+                FloatingActionButtons()
             },
             content = { paddingValues ->
-                BookGrid(books = sortedBooks, modifier = Modifier.padding(paddingValues))
+                Column(modifier = Modifier.padding(paddingValues)) {
+                    Spacer(modifier = Modifier.height(20.dp)) // Ensure there is space after the top bar
+                    TopBooksHeader(topBooks = topBooks)  // Display top books in a special header
+                    Spacer(modifier = Modifier.height(10.dp))  // Control space between top books and grid
+                    BookGrid(books = sortedBooks) // Apply only necessary padding here
+                }
             }
         )
+    }
+}
+
+@Composable
+fun FloatingActionButtons() {
+    Row(
+        modifier = Modifier.padding(16.dp),
+        horizontalArrangement = Arrangement.End
+    ) {
+        FloatingActionButton(onClick = { /* TODO: Add book action */ }) {
+            Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
+        }
+        Spacer(modifier = Modifier.width(16.dp))
+        FloatingActionButton(onClick = { /* TODO: Edit book action */ }) {
+            Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
+        }
     }
 }
 
@@ -103,7 +115,7 @@ fun BookwormHeader() {
 fun BookGrid(books: List<Book>, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        contentPadding = PaddingValues(16.dp),
+        contentPadding = PaddingValues(all = 8.dp), // Reduced padding for tighter layout
         modifier = modifier
     ) {
         items(books) { book ->
@@ -147,6 +159,48 @@ fun BookItem(book: Book) {
 fun DefaultPreview() {
     BookwormApp()
 }
+
+@Composable
+fun TopBooksHeader(topBooks: List<Book>) {
+    Row(
+        modifier = Modifier
+            .padding(8.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween
+    ) {
+        for (book in topBooks) {
+            TopBookItem(book)
+        }
+    }
+}
+
+@Composable
+fun TopBookItem(book: Book) {
+    Column(
+        modifier = Modifier
+            .padding(8.dp)
+            .width(100.dp) // Adjust width according to your layout
+            .height(150.dp), // Adjust height according to your layout
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.placeholder_cover),
+            contentDescription = "Top Book Cover",
+            modifier = Modifier
+                .height(100.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(8.dp))
+        )
+        Text(
+            text = book.title,
+            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+            textAlign = TextAlign.Center,
+            modifier = Modifier.fillMaxWidth()
+        )
+    }
+}
+
 
 // Sample data
 val sampleBooks = listOf(
