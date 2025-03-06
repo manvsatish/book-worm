@@ -151,7 +151,17 @@ val sampleBooks = listOf(
     Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
     Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
     Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = ""),
-    Book(title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = "")
+    Book(title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = ""),
+    Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
+    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
+    Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = ""),
+    Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
+    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
+    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
+    Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = ""),
+    Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
+    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
+    Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = "")
 )
 
 // Book data class
