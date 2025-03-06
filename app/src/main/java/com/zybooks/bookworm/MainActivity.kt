@@ -260,22 +260,22 @@ fun TopBookItem(book: Book) {
 
 // Sample data
 val sampleBooks = listOf(
-    Book(id = 0, title = "1984", author = "George Orwell", imageUrl = "", userRating = 1.1f, dateAdded = "2024-10-01"),
-    Book(id = 1, title = "Brave New World", author = "Aldous Huxley", imageUrl = "", userRating = 0.9f, dateAdded = "2024-10-02"),
-    Book(id = 2, title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = "", userRating = 4.9f, dateAdded = "2024-10-03"),
-    Book(id = 3, title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = "", userRating = 4.7f, dateAdded = "2024-10-04"),
-    Book(id = 4, title = "Pride and Prejudice", author = "Jane Austen", imageUrl = "", userRating = 3.0f, dateAdded = "2024-03-05"),
-    Book(id = 5, title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = "", userRating = 2.0f, dateAdded = "2024-10-06"),
-    Book(id = 6, title = "Harry Potter and the Sorcerer's Stone", author = "J.K. Rowling", imageUrl = "", userRating = 5.0f, dateAdded = "2024-02-01"),
-    Book(id = 7, title = "Harry Potter and the Chamber of Secrets", author = "J.K. Rowling", imageUrl = "", userRating = 5.0f, dateAdded = "2024-10-03"),
-    Book(id = 8, title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = "", userRating = 5.0f, dateAdded = "2024-09-01"),
-    Book(id = 9, title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = "", userRating = 4.8f, dateAdded = "2024-10-01"),
-    Book(id = 10, title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = "", userRating = 4.8f, dateAdded = "2024-10-01"),
-    Book(id = 11, title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = "", userRating = 4.9f, dateAdded = "2024-10-11"),
-    Book(id = 12, title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = "", userRating = 4.0f, dateAdded = "2024-08-01"),
-    Book(id = 13, title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = "", userRating = 4.5f, dateAdded = "2024-05-01"),
-    Book(id = 14, title = "The Fault in Our Stars", author = "John Green", imageUrl = "", userRating = 2.7f, dateAdded = "2024-04-09"),
-    Book(id = 15, title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = "", userRating = 1.0f, dateAdded = "2024-10-14")
+    Book(id = 0, title = "1984", author = "George Orwell", imageUrl = R.drawable.nineteen, userRating = 1.1f, dateAdded = "2024-10-01"),
+    Book(id = 1, title = "Brave New World", author = "Aldous Huxley", imageUrl = R.drawable.brave, userRating = 0.9f, dateAdded = "2024-10-02"),
+    Book(id = 2, title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = R.drawable.mockingbird, userRating = 4.9f, dateAdded = "2024-10-03"),
+    Book(id = 3, title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = R.drawable.gatsby, userRating = 4.7f, dateAdded = "2024-10-04"),
+    Book(id = 4, title = "Pride and Prejudice", author = "Jane Austen", imageUrl = R.drawable.pride, userRating = 3.0f, dateAdded = "2024-03-05"),
+    Book(id = 5, title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = R.drawable.hobbit, userRating = 2.0f, dateAdded = "2024-10-06"),
+    Book(id = 6, title = "Harry Potter and the Sorcerer's Stone", author = "J.K. Rowling", imageUrl = R.drawable.sorcerer, userRating = 5.0f, dateAdded = "2024-02-01"),
+    Book(id = 7, title = "Harry Potter and the Chamber of Secrets", author = "J.K. Rowling", imageUrl = R.drawable.chamber, userRating = 5.0f, dateAdded = "2024-10-03"),
+    Book(id = 8, title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = R.drawable.prisoner, userRating = 5.0f, dateAdded = "2024-09-01"),
+    Book(id = 9, title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = R.drawable.goblet, userRating = 4.8f, dateAdded = "2024-10-01"),
+    Book(id = 10, title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = R.drawable.order, userRating = 4.8f, dateAdded = "2024-10-01"),
+    Book(id = 11, title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = R.drawable.phoenix, userRating = 4.9f, dateAdded = "2024-10-11"),
+    Book(id = 12, title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = R.drawable.deathly, userRating = 4.0f, dateAdded = "2024-08-01"),
+    Book(id = 13, title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = R.drawable.huckleberry, userRating = 4.5f, dateAdded = "2024-05-01"),
+    Book(id = 14, title = "The Fault in Our Stars", author = "John Green", imageUrl = R.drawable.fault, userRating = 2.7f, dateAdded = "2024-04-09"),
+    Book(id = 15, title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = R.drawable.anna, userRating = 1.0f, dateAdded = "2024-10-14")
 )
 
 // Book data class
