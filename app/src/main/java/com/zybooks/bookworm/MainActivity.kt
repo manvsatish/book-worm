@@ -162,17 +162,26 @@ fun DefaultPreview() {
 
 @Composable
 fun TopBooksHeader(topBooks: List<Book>) {
-    Row(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceBetween
-    ) {
-        for (book in topBooks) {
-            TopBookItem(book)
+    Column {  // Wrap in Column to manage vertical arrangement
+        Row(
+            modifier = Modifier
+                .padding(8.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            for (book in topBooks) {
+                TopBookItem(book)
+            }
         }
+        // Add a divider line below the top books
+        Divider(
+            color = Color.Black,
+            thickness = 1.dp,
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+        )
     }
 }
+
 
 @Composable
 fun TopBookItem(book: Book) {
