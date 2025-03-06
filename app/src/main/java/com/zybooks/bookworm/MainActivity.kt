@@ -145,27 +145,29 @@ fun DefaultPreview() {
 
 // Sample data
 val sampleBooks = listOf(
-    Book(title = "1984", author = "George Orwell", imageUrl = ""),
-    Book(title = "Brave New World", author = "Aldous Huxley", imageUrl = ""),
-    Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
-    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
-    Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = ""),
-    Book(title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = ""),
-    Book(title = "Harry Potter and the Sorcerer's Stone", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Chamber of Secrets", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = ""),
-    Book(title = "The Fault in Our Stars", author = "John Green", imageUrl = ""),
-    Book(title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = "")
+    Book(title = "1984", author = "George Orwell", imageUrl = "", userRating = 1.1f, dateAdded = "2024-10-01"),
+    Book(title = "Brave New World", author = "Aldous Huxley", imageUrl = "", userRating = 0.9f, dateAdded = "2024-10-02"),
+    Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = "", userRating = 4.9f, dateAdded = "2024-10-03"),
+    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = "", userRating = 4.7f, dateAdded = "2024-10-04"),
+    Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = "", userRating = 3.0f, dateAdded = "2024-03-05"),
+    Book(title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = "", userRating = 2.0f, dateAdded = "2024-10-06"),
+    Book(title = "Harry Potter and the Sorcerer's Stone", author = "J.K. Rowling", imageUrl = "", userRating = 5.0f, dateAdded = "2024-02-01"),
+    Book(title = "Harry Potter and the Chamber of Secrets", author = "J.K. Rowling", imageUrl = "", userRating = 5.0f, dateAdded = "2024-10-03"),
+    Book(title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = "", userRating = 5.0f, dateAdded = "2024-09-01"),
+    Book(title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = "", userRating = 4.8f, dateAdded = "2024-10-01"),
+    Book(title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = "", userRating = 4.8f, dateAdded = "2024-10-01"),
+    Book(title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = "", userRating = 4.9f, dateAdded = "2024-10-11"),
+    Book(title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = "", userRating = 4.0f, dateAdded = "2024-08-01"),
+    Book(title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = "", userRating = 4.5f, dateAdded = "2024-05-01"),
+    Book(title = "The Fault in Our Stars", author = "John Green", imageUrl = "", userRating = 2.7f, dateAdded = "2024-04-09"),
+    Book(title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = "", userRating = 1.0f, dateAdded = "2024-10-14")
 )
 
 // Book data class
 data class Book(
     val title: String,
     val author: String,
-    val imageUrl: String
+    val imageUrl: String,
+    var userRating: Float,
+    var dateAdded: String
 )
