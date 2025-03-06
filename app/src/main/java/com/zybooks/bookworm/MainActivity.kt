@@ -56,7 +56,7 @@ fun BookwormApp() {
             content = { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues)) {
                     Spacer(modifier = Modifier.height(20.dp)) // Ensure there is space after the top bar
-                    TopBooksHeader(topBooks = topBooks)  // Display top books in a special header
+                    TopBooksHeader(topBooks = topBooks, userName = "Ken")  // Display top books in a special header
                     Spacer(modifier = Modifier.height(10.dp))  // Control space between top books and grid
                     BookGrid(books = sortedBooks) // Apply only necessary padding here
                 }
@@ -105,7 +105,7 @@ fun BookwormHeader() {
             modifier = Modifier
                 .align(Alignment.BottomCenter)
                 .width(376.dp)
-                .height(1.dp)
+                .height(2.dp)
                 .background(Color.Black)
         )
     }
@@ -161,8 +161,16 @@ fun DefaultPreview() {
 }
 
 @Composable
-fun TopBooksHeader(topBooks: List<Book>) {
+fun TopBooksHeader(topBooks: List<Book>, userName: String) {
     Column {  // Wrap in Column to manage vertical arrangement
+        Text(
+            text = "$userName's Highest Rated",
+            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Normal),  // Use a headline typography for emphasis
+            modifier = Modifier
+                .padding(horizontal = 16.dp, vertical = 10.dp)
+                .align(Alignment.Start)  // Align the text to the start of the column
+        )
+
         Row(
             modifier = Modifier
                 .padding(8.dp)
@@ -173,10 +181,10 @@ fun TopBooksHeader(topBooks: List<Book>) {
                 TopBookItem(book)
             }
         }
-        // Add a divider line below the top books
+
         Divider(
             color = Color.Black,
-            thickness = 1.dp,
+            thickness = 0.7.dp,
             modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
         )
     }
@@ -188,24 +196,27 @@ fun TopBookItem(book: Book) {
     Column(
         modifier = Modifier
             .padding(8.dp)
-            .width(100.dp) // Adjust width according to your layout
-            .height(150.dp), // Adjust height according to your layout
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
+            .size(width = 107.dp, height = 160.dp)  // Same dimensions as the grid items
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.placeholder_cover),
-            contentDescription = "Top Book Cover",
+        Box(
             modifier = Modifier
-                .height(100.dp)
+                .height(120.dp)  // Match the image height with the grid
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(8.dp))
-        )
+                .clip(RoundedCornerShape(28.dp))  // Same rounded corners as the grid
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.placeholder_cover),
+                contentDescription = "Top Book Cover",
+                modifier = Modifier.fillMaxSize()
+            )
+        }
         Text(
             text = book.title,
-            style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.Bold),
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),  // Same style as the grid
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 4.dp)  // Same padding as the grid
         )
     }
 }
