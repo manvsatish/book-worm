@@ -57,10 +57,10 @@ fun BookwormApp() {
             },
             content = { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues)) {
-                    Spacer(modifier = Modifier.height(20.dp)) // Ensure there is space after the top bar
-                    TopBooksHeader(topBooks = topBooks, userName = "Ken")  // Display top books in a special header
-                    Spacer(modifier = Modifier.height(10.dp))  // Control space between top books and grid
-                    BookGrid(books = sortedBooks) // Apply only necessary padding here
+                    Spacer(modifier = Modifier.height(20.dp))
+                    TopBooksHeader(topBooks = topBooks, userName = "Ken")
+                    Spacer(modifier = Modifier.height(10.dp))
+                    BookGrid(books = sortedBooks)
                 }
             }
         )
@@ -75,16 +75,16 @@ fun FloatingActionButtons() {
     ) {
         FloatingActionButton(
             onClick = { /* TODO: Add book action */ },
-            containerColor = Color.White, // Directly set background color
-            contentColor = Color.Black // Directly set content (icon) color
+            containerColor = Color.White,
+            contentColor = Color.Black
         ) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
         }
         Spacer(modifier = Modifier.width(16.dp))
         FloatingActionButton(
             onClick = { /* TODO: Edit book action */ },
-            containerColor = Color.White, // Directly set background color
-            contentColor = Color.Black // Directly set content (icon) color
+            containerColor = Color.White,
+            contentColor = Color.Black
         ) {
             Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
         }
@@ -103,6 +103,24 @@ fun BookwormHeader() {
                     color = Color.Black,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
+            },
+            actions = {
+                // Filter Icon Button
+                IconButton(onClick = { /* Handle filter icon click */ }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.filter),
+                        contentDescription = "Filter",
+                        modifier = Modifier.size(45.dp).padding(bottom = 10.dp)  // Set the size of the icon
+                    )
+                }
+                // Profile Icon Button
+                IconButton(onClick = { /* Handle profile icon click */ }) {
+                    Icon(
+                        painter = painterResource(id = R.drawable.userprofile),
+                        contentDescription = "Profile",
+                        modifier = Modifier.size(45.dp).padding(bottom = 12.dp)  // Set the size of the icon
+                    )
+                }
             },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.White
@@ -124,7 +142,7 @@ fun BookwormHeader() {
 fun BookGrid(books: List<Book>, modifier: Modifier = Modifier) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        contentPadding = PaddingValues(all = 8.dp), // Reduced padding for tighter layout
+        contentPadding = PaddingValues(all = 8.dp),
         modifier = modifier
     ) {
         items(books) { book ->
@@ -171,13 +189,13 @@ fun DefaultPreview() {
 
 @Composable
 fun TopBooksHeader(topBooks: List<Book>, userName: String) {
-    Column {  // Wrap in Column to manage vertical arrangement
+    Column {
         Text(
             text = "$userName's Highest Rated",
-            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Normal),  // Use a headline typography for emphasis
+            style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Normal),
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)  // Reduce vertical padding to decrease space
-                .align(Alignment.Start)  // Align the text to the start of the column
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .align(Alignment.Start)
         )
 
         Row(
@@ -191,7 +209,6 @@ fun TopBooksHeader(topBooks: List<Book>, userName: String) {
             }
         }
 
-        // Reduce vertical padding before the divider to decrease space
         Divider(
             color = Color.Black,
             thickness = 0.7.dp,
@@ -205,15 +222,15 @@ fun TopBookItem(book: Book) {
     Column(
         modifier = Modifier
             .padding(8.dp)
-            .size(width = 107.dp, height = 160.dp),  // Match dimensions with BookItem in the grid
+            .size(width = 107.dp, height = 160.dp),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier
-                .height(120.dp)  // Same height for the image box
+                .height(120.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(28.dp))  // Same rounded corners
+                .clip(RoundedCornerShape(28.dp))
         ) {
             Image(
                 painter = painterResource(id = R.drawable.placeholder_cover),
@@ -225,8 +242,8 @@ fun TopBookItem(book: Book) {
             text = book.title,
             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
             textAlign = TextAlign.Center,
-            maxLines = 2,  // Allow text wrapping if needed
-            overflow = TextOverflow.Ellipsis,  // Use ellipsis if text overflows the available space
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 4.dp)
