@@ -5,6 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -26,40 +27,45 @@ import androidx.compose.ui.Alignment
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.draw.clip
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 
 @OptIn(ExperimentalMaterial3Api::class) // Opt-in to experimental Material3 API
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            BookwormApp()
+            val navController = rememberNavController()
+            NavGraph(navController = navController)
         }
     }
 }
 
 @Composable
-fun BookwormApp() {
+fun BookwormApp(navController: NavHostController) {
     BookwormTheme {
         Scaffold(
-            topBar = {
-                BookwormHeader()
+            topBar = { BookwormHeader() },
+            content = { paddingValues ->
+                BookGrid(
+                    books = sampleBooks,
+                    modifier = Modifier.padding(paddingValues),
+                    onBookClick = { bookId -> navController.navigate("bookDetails/$bookId")})
             },
             floatingActionButton = {
                 Row(
                     modifier = Modifier.padding(16.dp),
                     horizontalArrangement = Arrangement.End
                 ) {
-                    FloatingActionButton(onClick = { /* TODO: Add book action */ }) {
+                    FloatingActionButton(onClick = { navController.navigate("addBook") }) {
                         Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
                     }
                     Spacer(modifier = Modifier.width(16.dp))
-                    FloatingActionButton(onClick = { /* TODO: Edit book action */ }) {
+                    FloatingActionButton(onClick = { navController.navigate("editBook") }) {
                         Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
                     }
                 }
-            },
-            content = { paddingValues ->
-                BookGrid(books = sampleBooks, modifier = Modifier.padding(paddingValues))
             }
         )
     }
@@ -95,24 +101,26 @@ fun BookwormHeader() {
 }
 
 @Composable
-fun BookGrid(books: List<Book>, modifier: Modifier = Modifier) {
+fun BookGrid(books: List<Book>, modifier: Modifier = Modifier, onBookClick: (Int) -> Unit) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
         contentPadding = PaddingValues(16.dp),
         modifier = modifier
     ) {
         items(books) { book ->
-            BookItem(book)
+            BookItem(book = book, onClick = { onBookClick(book.id)})
         }
     }
 }
 
+//creating the individual book object given lambda in bookgrid
 @Composable
-fun BookItem(book: Book) {
+fun BookItem(book: Book, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(8.dp)
             .size(width = 107.dp, height = 160.dp)
+            .clickable(onClick = onClick)
     ) {
         Box(
             modifier = Modifier
@@ -139,32 +147,36 @@ fun BookItem(book: Book) {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
-    BookwormApp()
+fun PreviewBookwormApp() {
+    BookwormTheme {
+        val navController = rememberNavController()
+        BookwormApp(navController)
+    }
 }
 
 // Sample data
 val sampleBooks = listOf(
-    Book(title = "1984", author = "George Orwell", imageUrl = ""),
-    Book(title = "Brave New World", author = "Aldous Huxley", imageUrl = ""),
-    Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
-    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
-    Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = ""),
-    Book(title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = ""),
-    Book(title = "Harry Potter and the Sorcerer's Stone", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Chamber of Secrets", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = ""),
-    Book(title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = ""),
-    Book(title = "The Fault in Our Stars", author = "John Green", imageUrl = ""),
-    Book(title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = "")
+    Book(id = 0, title = "1984", author = "George Orwell", imageUrl = ""),
+    Book(id = 1, title = "Brave New World", author = "Aldous Huxley", imageUrl = ""),
+    Book(id = 2, title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
+    Book(id = 3, title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
+    Book(id = 4, title = "Pride and Prejudice", author = "Jane Austen", imageUrl = ""),
+    Book(id = 5, title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = ""),
+    Book(id = 6, title = "Harry Potter and the Sorcerer's Stone", author = "J.K. Rowling", imageUrl = ""),
+    Book(id = 7, title = "Harry Potter and the Chamber of Secrets", author = "J.K. Rowling", imageUrl = ""),
+    Book(id = 8, title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = ""),
+    Book(id = 9, title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = ""),
+    Book(id = 10, title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = ""),
+    Book(id = 11, title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = ""),
+    Book(id = 12, title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = ""),
+    Book(id = 13, title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = ""),
+    Book(id = 14, title = "The Fault in Our Stars", author = "John Green", imageUrl = ""),
+    Book(id = 15, title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = "")
 )
 
 // Book data class
 data class Book(
+    val id: Int,
     val title: String,
     val author: String,
     val imageUrl: String
