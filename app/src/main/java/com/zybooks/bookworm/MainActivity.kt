@@ -26,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextOverflow
 
 @OptIn(ExperimentalMaterial3Api::class) // Opt-in to experimental Material3 API
 class MainActivity : ComponentActivity() {
@@ -167,7 +168,7 @@ fun TopBooksHeader(topBooks: List<Book>, userName: String) {
             text = "$userName's Highest Rated",
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Normal),  // Use a headline typography for emphasis
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 10.dp)
+                .padding(horizontal = 16.dp, vertical = 8.dp)  // Reduce vertical padding to decrease space
                 .align(Alignment.Start)  // Align the text to the start of the column
         )
 
@@ -182,27 +183,29 @@ fun TopBooksHeader(topBooks: List<Book>, userName: String) {
             }
         }
 
+        // Reduce vertical padding before the divider to decrease space
         Divider(
             color = Color.Black,
             thickness = 0.7.dp,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
         )
     }
 }
-
 
 @Composable
 fun TopBookItem(book: Book) {
     Column(
         modifier = Modifier
             .padding(8.dp)
-            .size(width = 107.dp, height = 160.dp)  // Same dimensions as the grid items
+            .size(width = 107.dp, height = 160.dp),  // Match dimensions with BookItem in the grid
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Box(
             modifier = Modifier
-                .height(120.dp)  // Match the image height with the grid
+                .height(120.dp)  // Same height for the image box
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(28.dp))  // Same rounded corners as the grid
+                .clip(RoundedCornerShape(28.dp))  // Same rounded corners
         ) {
             Image(
                 painter = painterResource(id = R.drawable.placeholder_cover),
@@ -212,15 +215,16 @@ fun TopBookItem(book: Book) {
         }
         Text(
             text = book.title,
-            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),  // Same style as the grid
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
             textAlign = TextAlign.Center,
+            maxLines = 2,  // Allow text wrapping if needed
+            overflow = TextOverflow.Ellipsis,  // Use ellipsis if text overflows the available space
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(top = 4.dp)  // Same padding as the grid
+                .padding(top = 4.dp)
         )
     }
 }
-
 
 // Sample data
 val sampleBooks = listOf(
