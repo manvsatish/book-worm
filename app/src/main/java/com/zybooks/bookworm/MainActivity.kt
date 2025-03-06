@@ -73,50 +73,51 @@ fun BookwormApp(navController: NavHostController) {
         compareByDescending<Book> { it.userRating }
             .thenByDescending { it.dateAdded }
     )
-    val topBooks = sortedBooks.take(3) // Take the top 3 books
+    val topBooks = sortedBooks.take(3)
 
     BookwormTheme {
         Scaffold(
             topBar = { BookwormHeader() },
-            floatingActionButton = {
-                Row(
-                    modifier = Modifier.padding(16.dp),
-                    horizontalArrangement = Arrangement.End
-                ) {
-                    FloatingActionButton(
-                        onClick = { navController.navigate("addBook") },
-                        containerColor = Color.White,
-                        contentColor = Color.Black
-                    ) {
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
-                    }
-
-                    Spacer(modifier = Modifier.width(16.dp))
-
-                    FloatingActionButton(
-                        onClick = { navController.navigate("editBook")},
-                        containerColor = Color.White,
-                        contentColor = Color.Black
-                    )
-                    {
-                        Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
-                    }
-                }
-            },
+            floatingActionButton = { FloatingActionButtons(navController) },
             content = { paddingValues ->
-                Column(modifier = Modifier.padding(paddingValues)) {
-                    Spacer(modifier = Modifier.height(20.dp))
+                Column(modifier = Modifier.padding(paddingValues).padding(top = 0.dp)) {
                     TopBooksHeader(topBooks = topBooks, userName = "Ken", onBookClick = { id ->
                         navController.navigate("bookDetails/$id")
                     })
-                    Spacer(modifier = Modifier.height(10.dp))
                     BookGrid(
                         books = sortedBooks,
-                        modifier = Modifier.padding(paddingValues),
-                        onBookClick = { bookId -> navController.navigate("bookDetails/$bookId")})
+                        onBookClick = { bookId -> navController.navigate("bookDetails/$bookId") }
+                    )
                 }
             }
         )
+    }
+}
+
+@Composable
+fun FloatingActionButtons(navController: NavHostController) {
+    Row(
+        modifier = Modifier.padding(16.dp),
+        horizontalArrangement = Arrangement.End
+    ) {
+        FloatingActionButton(
+            onClick = { navController.navigate("addBook") },
+            containerColor = Color.White,
+            contentColor = Color.Black
+        ) {
+            Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
+        }
+
+        Spacer(modifier = Modifier.width(16.dp))
+
+        FloatingActionButton(
+            onClick = { navController.navigate("editBook")},
+            containerColor = Color.White,
+            contentColor = Color.Black
+        )
+        {
+            Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
+        }
     }
 }
 
@@ -161,13 +162,14 @@ fun BookwormHeader() {
 
 @Composable
 fun BookGrid(books: List<Book>, modifier: Modifier = Modifier, onBookClick: (Int) -> Unit) {
+    Spacer(Modifier.height(16.dp))
     LazyVerticalGrid(
         columns = GridCells.Fixed(3),
-        contentPadding = PaddingValues(all = 8.dp),
+        contentPadding = PaddingValues(all = 4.dp),
         modifier = modifier
     ) {
         items(books) { book ->
-            BookItem(book = book, onClick = { onBookClick(book.id)})
+            BookItem(book = book, onClick = { onBookClick(book.id) })
         }
     }
 }
@@ -237,7 +239,7 @@ fun TopBooksHeader(topBooks: List<Book>, userName: String, onBookClick: (Int) ->
         Divider(
             color = Color.Black,
             thickness = 0.7.dp,
-            modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+            modifier = Modifier.padding(top = 4.dp, bottom = 0.dp, start = 16.dp, end = 16.dp)
         )
     }
 }
