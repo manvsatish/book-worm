@@ -39,6 +39,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BookwormApp() {
+    // Sort books by rating, and then by date (both descending)
+    val sortedBooks = sampleBooks.sortedWith(compareByDescending<Book> { it.userRating }
+        .thenByDescending { it.dateAdded })
+
     BookwormTheme {
         Scaffold(
             topBar = {
@@ -59,11 +63,12 @@ fun BookwormApp() {
                 }
             },
             content = { paddingValues ->
-                BookGrid(books = sampleBooks, modifier = Modifier.padding(paddingValues))
+                BookGrid(books = sortedBooks, modifier = Modifier.padding(paddingValues))
             }
         )
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
