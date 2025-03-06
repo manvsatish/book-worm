@@ -156,7 +156,7 @@ fun BookGrid(books: List<Book>, modifier: Modifier = Modifier, onBookClick: (Int
 }
 
 @Composable
-fun BookItem(book: Book) {
+fun BookItem(book: Book, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(8.dp)
