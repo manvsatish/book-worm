@@ -216,12 +216,13 @@ fun PreviewBookwormApp() {
 
 @Composable
 fun TopBooksHeader(topBooks: List<Book>, userName: String, onBookClick: (Int) -> Unit) {
+    Spacer(Modifier.height(8.dp))
     Column {
         Text(
             text = "$userName's Highest Rated",
             style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Normal),
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .padding(horizontal = 16.dp, vertical = 6.dp)
                 .align(Alignment.Start)
         )
 
