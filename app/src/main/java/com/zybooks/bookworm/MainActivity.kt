@@ -23,6 +23,9 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.Alignment
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.layout.Box
+import androidx.compose.ui.draw.clip
 
 @OptIn(ExperimentalMaterial3Api::class) // Opt-in to experimental Material3 API
 class MainActivity : ComponentActivity() {
@@ -71,7 +74,7 @@ fun BookwormHeader() {
             title = {
                 Text(
                     "BOOKWORM",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
                     color = Color.Black,
                     modifier = Modifier.padding(bottom = 8.dp)  // Add padding below the title
                 )
@@ -110,18 +113,23 @@ fun BookItem(book: Book) {
     Column(
         modifier = Modifier
             .padding(8.dp)
-            .size(width = 120.dp, height = 160.dp) // Fixed dimensions for each book item
+            .size(width = 107.dp, height = 160.dp) // Fixed dimensions for each book item
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.placeholder_cover),
-            contentDescription = "Book Cover",
+        Box(
             modifier = Modifier
                 .height(120.dp)
                 .fillMaxWidth()
-        )
+                .clip(RoundedCornerShape(28.dp))  // Apply rounded corners
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.placeholder_cover),
+                contentDescription = "Book Cover",
+                modifier = Modifier.fillMaxSize()  // Ensure the image fills the Box area
+            )
+        }
         Text(
             text = book.title,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.titleSmall, // Apply the custom title typography
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
