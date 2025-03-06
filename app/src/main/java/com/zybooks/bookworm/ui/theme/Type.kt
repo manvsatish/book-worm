@@ -11,13 +11,11 @@ import androidx.compose.ui.text.TextStyle
 import com.zybooks.bookworm.R
 
 
-// Define the font family using a font from the res/font directory
 val InstrumentSans = FontFamily(
     Font(resId = R.font.instrument_sans, weight = FontWeight.Normal)
 )
 
 
-// Define a set of Material typography styles that use Instrument Sans
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = InstrumentSans,
@@ -40,5 +38,5 @@ val Typography = Typography(
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     )
-    // Add other styles as necessary
+    // Add other styles if we ned
 )

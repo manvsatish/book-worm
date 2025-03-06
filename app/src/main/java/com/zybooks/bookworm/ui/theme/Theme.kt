@@ -39,7 +39,7 @@ fun BookwormTheme(
 
     MaterialTheme(
         colorScheme = colorScheme,
-        typography = Typography,  // Ensure this is the Typography object from Type.kt
+        typography = Typography,
         content = content
     )
 }

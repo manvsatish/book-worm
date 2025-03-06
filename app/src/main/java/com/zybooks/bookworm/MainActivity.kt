@@ -68,7 +68,6 @@ fun BookwormApp() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookwormHeader() {
-    // TopAppBar wrapped in a Box to apply a custom border at the bottom.
     Box {
         TopAppBar(
             title = {
@@ -76,21 +75,21 @@ fun BookwormHeader() {
                     "BOOKWORM",
                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
                     color = Color.Black,
-                    modifier = Modifier.padding(bottom = 8.dp)  // Add padding below the title
+                    modifier = Modifier.padding(bottom = 8.dp)
                 )
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.White // Set the background color to white
+                containerColor = Color.White
             ),
-            modifier = Modifier.height(64.dp) // Adjust the height if needed to accommodate padding
+            modifier = Modifier.height(64.dp)
         )
-        // Customizing the black line to not span the entire width
+
         Box(
             modifier = Modifier
-                .align(Alignment.BottomCenter) // Keeps the line centered at the bottom
-                .width(376.dp) // Set the width of the black line
-                .height(1.dp) // Set the height of the black line
-                .background(Color.Black) // Set the color of the line
+                .align(Alignment.BottomCenter)
+                .width(376.dp)
+                .height(1.dp)
+                .background(Color.Black)
         )
     }
 }
@@ -113,23 +112,23 @@ fun BookItem(book: Book) {
     Column(
         modifier = Modifier
             .padding(8.dp)
-            .size(width = 107.dp, height = 160.dp) // Fixed dimensions for each book item
+            .size(width = 107.dp, height = 160.dp)
     ) {
         Box(
             modifier = Modifier
                 .height(120.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(28.dp))  // Apply rounded corners
+                .clip(RoundedCornerShape(28.dp))
         ) {
             Image(
                 painter = painterResource(id = R.drawable.placeholder_cover),
                 contentDescription = "Book Cover",
-                modifier = Modifier.fillMaxSize()  // Ensure the image fills the Box area
+                modifier = Modifier.fillMaxSize()
             )
         }
         Text(
             text = book.title,
-            style = MaterialTheme.typography.titleSmall, // Apply the custom title typography
+            style = MaterialTheme.typography.titleSmall,
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
