@@ -169,7 +169,7 @@ fun BookItem(book: Book, onClick: () -> Unit) {
                 .clip(RoundedCornerShape(28.dp))
         ) {
             Image(
-                painter = painterResource(id = R.drawable.placeholder_cover),
+                painter = painterResource(id = book.imageUrl),
                 contentDescription = "Book Cover",
                 modifier = Modifier.fillMaxSize()
             )
@@ -240,7 +240,7 @@ fun TopBookItem(book: Book) {
                 .clip(RoundedCornerShape(28.dp))
         ) {
             Image(
-                painter = painterResource(id = R.drawable.placeholder_cover),
+                painter = painterResource(id = book.imageUrl),
                 contentDescription = "Top Book Cover",
                 modifier = Modifier.fillMaxSize()
             )
@@ -283,7 +283,7 @@ data class Book(
     val id: Int,
     val title: String,
     val author: String,
-    val imageUrl: String,
+    val imageUrl: Int,
     var userRating: Float,
     var dateAdded: String
 )
