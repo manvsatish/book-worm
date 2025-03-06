@@ -39,6 +39,29 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+
+private val DarkColorScheme = darkColorScheme(
+    primary = Color.Black,
+    onPrimary = Color.White,
+    surface = Color.Black,
+    onSurface = Color.White,
+    background = Color.Black,
+    onBackground = Color.White,
+    error = Color.Red,
+    onError = Color.Black
+)
+
+private val LightColorScheme = lightColorScheme(
+    primary = Color.White,
+    onPrimary = Color.Black,
+    surface = Color.White,
+    onSurface = Color.Black,
+    background = Color.White,
+    onBackground = Color.Black,
+    error = Color.Red,
+    onError = Color.White
+)
+
 @Composable
 fun BookwormApp() {
     val sortedBooks = sampleBooks.sortedWith(
@@ -105,20 +128,12 @@ fun BookwormHeader() {
                 )
             },
             actions = {
-                // Filter Icon Button
-                IconButton(onClick = { /* Handle filter icon click */ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.filter),
-                        contentDescription = "Filter",
-                        modifier = Modifier.size(45.dp).padding(bottom = 10.dp)  // Set the size of the icon
-                    )
-                }
                 // Profile Icon Button
                 IconButton(onClick = { /* Handle profile icon click */ }) {
                     Icon(
                         painter = painterResource(id = R.drawable.userprofile),
                         contentDescription = "Profile",
-                        modifier = Modifier.size(45.dp).padding(bottom = 12.dp)  // Set the size of the icon
+                        modifier = Modifier.size(45.dp).padding(bottom = 12.dp, end = 4.dp)  // Set the size of the icon
                     )
                 }
             },
