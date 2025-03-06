@@ -3,12 +3,9 @@ package com.zybooks.bookworm
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
@@ -24,10 +21,7 @@ import com.zybooks.bookworm.ui.theme.BookwormTheme
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.LineHeightStyle
-import androidx.compose.foundation.background
 import androidx.compose.ui.Alignment
 
 @OptIn(ExperimentalMaterial3Api::class) // Opt-in to experimental Material3 API
@@ -78,21 +72,22 @@ fun BookwormHeader() {
                 Text(
                     "BOOKWORM",
                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Bold),
-                    color = Color.Black
+                    color = Color.Black,
+                    modifier = Modifier.padding(bottom = 8.dp)  // Add padding below the title
                 )
             },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.White // Set the background color to white
             ),
-            modifier = Modifier.height(56.dp) // Set the height of the AppBar
+            modifier = Modifier.height(64.dp) // Adjust the height if needed to accommodate padding
         )
-        // Thin black line at the bottom
+        // Customizing the black line to not span the entire width
         Box(
             modifier = Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .height(1.dp)
-                .background(Color.Black)
+                .align(Alignment.BottomCenter) // Keeps the line centered at the bottom
+                .width(376.dp) // Set the width of the black line
+                .height(1.dp) // Set the height of the black line
+                .background(Color.Black) // Set the color of the line
         )
     }
 }
