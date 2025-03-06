@@ -28,6 +28,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextOverflow
 
+
 @OptIn(ExperimentalMaterial3Api::class) // Opt-in to experimental Material3 API
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,11 +73,19 @@ fun FloatingActionButtons() {
         modifier = Modifier.padding(16.dp),
         horizontalArrangement = Arrangement.End
     ) {
-        FloatingActionButton(onClick = { /* TODO: Add book action */ }) {
+        FloatingActionButton(
+            onClick = { /* TODO: Add book action */ },
+            containerColor = Color.White, // Directly set background color
+            contentColor = Color.Black // Directly set content (icon) color
+        ) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
         }
         Spacer(modifier = Modifier.width(16.dp))
-        FloatingActionButton(onClick = { /* TODO: Edit book action */ }) {
+        FloatingActionButton(
+            onClick = { /* TODO: Edit book action */ },
+            containerColor = Color.White, // Directly set background color
+            contentColor = Color.Black // Directly set content (icon) color
+        ) {
             Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
         }
     }
