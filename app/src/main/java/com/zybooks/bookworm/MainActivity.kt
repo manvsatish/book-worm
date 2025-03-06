@@ -128,7 +128,7 @@ fun BookItem(book: Book) {
         }
         Text(
             text = book.title,
-            style = MaterialTheme.typography.titleSmall,
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()
@@ -151,16 +151,16 @@ val sampleBooks = listOf(
     Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
     Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = ""),
     Book(title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = ""),
-    Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
-    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
-    Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = ""),
-    Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
-    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
-    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
-    Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = ""),
-    Book(title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = ""),
-    Book(title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = ""),
-    Book(title = "Pride and Prejudice", author = "Jane Austen", imageUrl = "")
+    Book(title = "Harry Potter and the Sorcerer's Stone", author = "J.K. Rowling", imageUrl = ""),
+    Book(title = "Harry Potter and the Chamber of Secrets", author = "J.K. Rowling", imageUrl = ""),
+    Book(title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = ""),
+    Book(title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = ""),
+    Book(title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = ""),
+    Book(title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = ""),
+    Book(title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = ""),
+    Book(title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = ""),
+    Book(title = "The Fault in Our Stars", author = "John Green", imageUrl = ""),
+    Book(title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = "")
 )
 
 // Book data class
