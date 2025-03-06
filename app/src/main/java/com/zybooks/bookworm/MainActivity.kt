@@ -106,7 +106,9 @@ fun BookwormApp(navController: NavHostController) {
             content = { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues)) {
                     Spacer(modifier = Modifier.height(20.dp))
-                    TopBooksHeader(topBooks = topBooks, userName = "Ken")
+                    TopBooksHeader(topBooks = topBooks, userName = "Ken", onBookClick = { id ->
+                        navController.navigate("bookDetails/$id")
+                    })
                     Spacer(modifier = Modifier.height(10.dp))
                     BookGrid(
                         books = sortedBooks,
@@ -176,6 +178,7 @@ fun BookItem(book: Book, onClick: () -> Unit) {
         modifier = Modifier
             .padding(8.dp)
             .size(width = 107.dp, height = 160.dp)
+            .clickable(onClick = onClick)
     ) {
         Box(
             modifier = Modifier
@@ -210,7 +213,7 @@ fun PreviewBookwormApp() {
 }
 
 @Composable
-fun TopBooksHeader(topBooks: List<Book>, userName: String) {
+fun TopBooksHeader(topBooks: List<Book>, userName: String, onBookClick: (Int) -> Unit) {
     Column {
         Text(
             text = "$userName's Highest Rated",
@@ -226,8 +229,8 @@ fun TopBooksHeader(topBooks: List<Book>, userName: String) {
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            for (book in topBooks) {
-                TopBookItem(book)
+            topBooks.forEach { book ->
+                TopBookItem(book, onClick = { onBookClick(book.id) })
             }
         }
 
@@ -239,12 +242,14 @@ fun TopBooksHeader(topBooks: List<Book>, userName: String) {
     }
 }
 
+
 @Composable
-fun TopBookItem(book: Book) {
+fun TopBookItem(book: Book, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(8.dp)
-            .size(width = 107.dp, height = 160.dp),
+            .size(width = 107.dp, height = 160.dp)
+            .clickable(onClick = onClick),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -272,6 +277,7 @@ fun TopBookItem(book: Book) {
         )
     }
 }
+
 
 // Sample data
 val sampleBooks = listOf(
