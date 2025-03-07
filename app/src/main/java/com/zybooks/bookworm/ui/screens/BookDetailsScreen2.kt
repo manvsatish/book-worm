@@ -1,8 +1,11 @@
 package com.zybooks.bookworm.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -21,6 +24,7 @@ import coil.compose.AsyncImage
 import com.zybooks.bookworm.R
 import com.zybooks.bookworm.sampleBooks
 import androidx.compose.material3.Text
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.style.TextAlign
 import com.zybooks.bookworm.Book
 
@@ -30,6 +34,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
     val book = sampleBooks.find { it.id == bookId }
 
     if (book != null) {
+        val booksByAuthor = getBooksByAuthor(sampleBooks, book)
         Scaffold(
             topBar = { BookwormHeader(navController) },
             content = { paddingValues ->
@@ -125,6 +130,8 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                         modifier = Modifier.padding(start = 8.dp))
 
                     Spacer(modifier = Modifier.height(16.dp))
+
+                    HorizontalScrollableBookRow(booksByAuthor, navController)
                 }
             }
         )
@@ -132,6 +139,39 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
         Text("Book not found", style = MaterialTheme.typography.bodyLarge)
     }
 
+}
+
+@Composable
+fun HorizontalScrollableBookRow(books: List<Book>, navController: NavHostController) {
+    Row(
+        modifier = Modifier.horizontalScroll(rememberScrollState())
+    ) {
+        for (book in books) {
+            BookCover(book, navController)
+        }
+    }
+}
+
+@Composable
+fun BookCover(book: Book, navController: NavHostController) {
+    Column(modifier = Modifier.padding(8.dp)) {
+        AsyncImage(
+            model = book.imageUrl,
+            contentDescription = "Book Cover",
+            modifier = Modifier
+                .size(120.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .clickable {
+                    navController.navigate("bookDetails/${book.id}") // Assuming book details screen can be navigated with the book ID
+                }
+        )
+        Text(
+            text = book.title,
+            style = MaterialTheme.typography.bodySmall,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.width(120.dp)
+        )
+    }
 }
 
 @Composable
@@ -214,4 +254,8 @@ fun BookwormHeader(navController: NavHostController) {
                 .background(Color.Black)
         )
     }
+}
+
+fun getBooksByAuthor(books: List<Book>, currentBook: Book): List<Book> {
+    return books.filter { it.author == currentBook.author && it.id != currentBook.id }
 }
