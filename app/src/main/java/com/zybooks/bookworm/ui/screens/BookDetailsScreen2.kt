@@ -21,6 +21,8 @@ import coil.compose.AsyncImage
 import com.zybooks.bookworm.R
 import com.zybooks.bookworm.sampleBooks
 import androidx.compose.material3.Text
+import androidx.compose.ui.text.style.TextAlign
+import com.zybooks.bookworm.Book
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -100,30 +102,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Text(
-                        text = "Page Count: ${book.totalPages}",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(start = 8.dp)
-                    )
-
-                    Text(
-                        text = "Language: English",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(start = 8.dp)
-                    )
-
-
-                    Text(
-                        text = "ISBN: ${book.isbn}",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(start = 8.dp)
-                    )
-
-                    Text(
-                        text = "Published ${book.publishDate}",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(start = 8.dp)
-                    )
+                    BookDetailsInfo(book)
 
                     Spacer(modifier = Modifier.height(16.dp))
 
@@ -151,6 +130,40 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
         )
     } else {
         Text("Book not found", style = MaterialTheme.typography.bodyLarge)
+    }
+
+}
+
+@Composable
+fun BookDetailsInfo(book: Book) {
+    Column(modifier = Modifier.padding(horizontal = 8.dp)) {
+        BookDetailRow(label = "Page Count", value = "${book.totalPages}")
+        BookDetailRow(label = "ISBN", value = book.isbn)
+        BookDetailRow(label = "Language", value = "English")
+        BookDetailRow(label = "Published", value = book.publishDate)
+    }
+}
+
+@Composable
+fun BookDetailRow(label: String, value: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        Text(
+            text = label,
+            modifier = Modifier.width(100.dp),
+            style = MaterialTheme.typography.bodyLarge,
+            textAlign = TextAlign.Start
+        )
+
+        Spacer(modifier = Modifier.width(16.dp)) // Space between label and value
+
+        Text(
+            text = value,
+            style = MaterialTheme.typography.bodyLarge
+        )
     }
 }
 
