@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import androidx.compose.ui.text.style.TextOverflow
+import com.zybooks.bookworm.navigation.NavGraph
 
 
 @OptIn(ExperimentalMaterial3Api::class) // Opt-in to experimental Material3 API
@@ -237,10 +238,10 @@ fun TopBooksHeader(topBooks: List<Book>, userName: String, onBookClick: (Int) ->
             }
         }
 
-        Divider(
-            color = Color.Black,
+        HorizontalDivider(
+            modifier = Modifier.padding(top = 4.dp, bottom = 0.dp, start = 16.dp, end = 16.dp),
             thickness = 0.7.dp,
-            modifier = Modifier.padding(top = 4.dp, bottom = 0.dp, start = 16.dp, end = 16.dp)
+            color = Color.Black
         )
     }
 }
@@ -283,24 +284,25 @@ fun TopBookItem(book: Book, onClick: () -> Unit) {
 
 
 // Sample data
-val sampleBooks = listOf(
-    Book(id = 0, title = "1984", author = "George Orwell", imageUrl = R.drawable.nineteen, userRating = 1.1f, dateAdded = "2024-10-01"),
-    Book(id = 1, title = "Brave New World", author = "Aldous Huxley", imageUrl = R.drawable.brave, userRating = 0.9f, dateAdded = "2024-10-02"),
-    Book(id = 2, title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = R.drawable.mockingbird, userRating = 4.9f, dateAdded = "2024-10-03"),
-    Book(id = 3, title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = R.drawable.gatsby, userRating = 4.7f, dateAdded = "2024-10-04"),
-    Book(id = 4, title = "Pride and Prejudice", author = "Jane Austen", imageUrl = R.drawable.pride, userRating = 3.0f, dateAdded = "2024-03-05"),
-    Book(id = 5, title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = R.drawable.hobbit, userRating = 2.0f, dateAdded = "2024-10-06"),
-    Book(id = 6, title = "Harry Potter and the Sorcerer's Stone", author = "J.K. Rowling", imageUrl = R.drawable.sorcerer, userRating = 5.0f, dateAdded = "2024-02-01"),
-    Book(id = 7, title = "Harry Potter and the Chamber of Secrets", author = "J.K. Rowling", imageUrl = R.drawable.chamber, userRating = 5.0f, dateAdded = "2024-10-03"),
-    Book(id = 8, title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = R.drawable.prisoner, userRating = 5.0f, dateAdded = "2024-09-01"),
-    Book(id = 9, title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = R.drawable.goblet, userRating = 4.8f, dateAdded = "2024-10-01"),
-    Book(id = 10, title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = R.drawable.order, userRating = 4.8f, dateAdded = "2024-10-01"),
-    Book(id = 11, title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = R.drawable.phoenix, userRating = 4.9f, dateAdded = "2024-10-11"),
-    Book(id = 12, title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = R.drawable.deathly, userRating = 4.0f, dateAdded = "2024-08-01"),
-    Book(id = 13, title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = R.drawable.huckleberry, userRating = 4.5f, dateAdded = "2024-05-01"),
-    Book(id = 14, title = "The Fault in Our Stars", author = "John Green", imageUrl = R.drawable.fault, userRating = 2.7f, dateAdded = "2024-04-09"),
-    Book(id = 15, title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = R.drawable.anna, userRating = 1.0f, dateAdded = "2024-10-14")
+val sampleBooks = mutableListOf(
+    Book(id = 0, title = "1984", author = "George Orwell", imageUrl = R.drawable.nineteen, userRating = 1.1f, dateAdded = "2024-10-01", review = "A classic dystopian novel.", totalPages = 328, pagesRead = 150),
+    Book(id = 1, title = "Brave New World", author = "Aldous Huxley", imageUrl = R.drawable.brave, userRating = 0.9f, dateAdded = "2024-10-02", review = "A thought-provoking look at the future.", totalPages = 311, pagesRead = 50),
+    Book(id = 2, title = "To Kill a Mockingbird", author = "Harper Lee", imageUrl = R.drawable.mockingbird, userRating = 4.9f, dateAdded = "2024-10-03", review = "A powerful story of race and justice.", totalPages = 281, pagesRead = 281),
+    Book(id = 3, title = "The Great Gatsby", author = "F. Scott Fitzgerald", imageUrl = R.drawable.gatsby, userRating = 4.7f, dateAdded = "2024-10-04", review = "A tale of wealth, love, and tragedy.", totalPages = 180, pagesRead = 180),
+    Book(id = 4, title = "Pride and Prejudice", author = "Jane Austen", imageUrl = R.drawable.pride, userRating = 3.0f, dateAdded = "2024-03-05", review = "A classic romance with sharp social commentary.", totalPages = 279, pagesRead = 120),
+    Book(id = 5, title = "The Hobbit", author = "J.R.R. Tolkien", imageUrl = R.drawable.hobbit, userRating = 2.0f, dateAdded = "2024-10-06", review = "An adventurous journey through Middle Earth.", totalPages = 310, pagesRead = 45),
+    Book(id = 6, title = "Harry Potter and the Sorcerer's Stone", author = "J.K. Rowling", imageUrl = R.drawable.sorcerer, userRating = 5.0f, dateAdded = "2024-02-01", review = "The magical beginning of a beloved series.", totalPages = 309, pagesRead = 309),
+    Book(id = 7, title = "Harry Potter and the Chamber of Secrets", author = "J.K. Rowling", imageUrl = R.drawable.chamber, userRating = 5.0f, dateAdded = "2024-10-03", review = "The second year at Hogwarts brings more mystery.", totalPages = 341, pagesRead = 150),
+    Book(id = 8, title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = R.drawable.prisoner, userRating = 5.0f, dateAdded = "2024-09-01", review = "A darker and more thrilling installment.", totalPages = 435, pagesRead = 250),
+    Book(id = 9, title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = R.drawable.goblet, userRating = 4.8f, dateAdded = "2024-10-01", review = "A magical tournament full of twists and turns.", totalPages = 734, pagesRead = 500),
+    Book(id = 10, title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = R.drawable.order, userRating = 4.8f, dateAdded = "2024-10-01", review = "The fight against dark forces intensifies.", totalPages = 766, pagesRead = 300),
+    Book(id = 11, title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = R.drawable.phoenix, userRating = 4.5f, dateAdded = "2024-10-11", review = "A deep dive into Voldemort's past and Harry's future.", totalPages = 652, pagesRead = 650),
+    Book(id = 12, title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = R.drawable.deathly, userRating = 4.0f, dateAdded = "2024-08-01", review = "A gripping conclusion to the series.", totalPages = 759, pagesRead = 200),
+    Book(id = 13, title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = R.drawable.huckleberry, userRating = 4.5f, dateAdded = "2024-05-01", review = "An exploration of freedom and morality.", totalPages = 366, pagesRead = 180),
+    Book(id = 14, title = "The Fault in Our Stars", author = "John Green", imageUrl = R.drawable.fault, userRating = 2.7f, dateAdded = "2024-04-09", review = "A heartbreaking yet beautiful love story.", totalPages = 313, pagesRead = 100),
+    Book(id = 15, title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = R.drawable.anna, userRating = 1.0f, dateAdded = "2024-10-14", review = "A long, complex narrative about love and betrayal.", totalPages = 864, pagesRead = 250)
 )
+
 
 // Book data class
 data class Book(
@@ -309,10 +311,10 @@ data class Book(
     val author: String,
     val imageUrl: Int,
     var userRating: Float,
-    var dateAdded: String
-//    var review: String,
-//    val totalPgs: Int,
-//    var pagesRead: Int,
+    var dateAdded: String,
+    var review: String,
+    var totalPages: Int,
+    var pagesRead: Int
 //    val genre: String,
 //    val description: String,
 //    val ibsn: String,
