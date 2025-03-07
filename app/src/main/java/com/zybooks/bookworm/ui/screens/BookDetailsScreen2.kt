@@ -129,7 +129,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
 
                     Text(
                         text = "About the Author",
-                        modifier = Modifier.padding(8.dp),
+                        modifier = Modifier.padding(top = 8.dp, start = 8.dp),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                     )
                     Text(
@@ -141,7 +141,9 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                     Spacer(modifier = Modifier.height(8.dp))
 
                     // Placeholder for more novels from this author
-                    Text("More Novels from this Author ...", style = MaterialTheme.typography.bodyLarge)
+                    Text("More Novels from this Author ...",
+                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                        modifier = Modifier.padding(start = 8.dp))
 
                     Spacer(modifier = Modifier.height(16.dp))
                 }
