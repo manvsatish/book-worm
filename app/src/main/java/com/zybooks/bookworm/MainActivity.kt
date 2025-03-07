@@ -310,4 +310,13 @@ data class Book(
     val imageUrl: Int,
     var userRating: Float,
     var dateAdded: String
+//    var review: String,
+//    val totalPgs: Int,
+//    var pagesRead: Int,
+//    val genre: String,
+//    val description: String,
+//    val ibsn: String,
+//    val pgCount: Int,
+//    val publishDate: String,
+//    val authorBio: String
 )
