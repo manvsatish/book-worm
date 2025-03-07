@@ -33,7 +33,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import com.zybooks.bookworm.navigation.NavGraph
 
 
-@OptIn(ExperimentalMaterial3Api::class) // Opt-in to experimental Material3 API
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -237,10 +236,10 @@ fun TopBooksHeader(topBooks: List<Book>, userName: String, onBookClick: (Int) ->
             }
         }
 
-        Divider(
-            color = Color.Black,
+        HorizontalDivider(
+            modifier = Modifier.padding(top = 4.dp, bottom = 0.dp, start = 16.dp, end = 16.dp),
             thickness = 0.7.dp,
-            modifier = Modifier.padding(top = 4.dp, bottom = 0.dp, start = 16.dp, end = 16.dp)
+            color = Color.Black
         )
     }
 }
@@ -295,7 +294,7 @@ val sampleBooks = mutableListOf(
     Book(id = 8, title = "Harry Potter and the Prisoner of Azkaban", author = "J.K. Rowling", imageUrl = R.drawable.prisoner, userRating = 5.0f, dateAdded = "2024-09-01", review = "A darker and more thrilling installment.", totalPages = 435, pagesRead = 250),
     Book(id = 9, title = "Harry Potter and the Goblet of Fire", author = "J.K. Rowling", imageUrl = R.drawable.goblet, userRating = 4.8f, dateAdded = "2024-10-01", review = "A magical tournament full of twists and turns.", totalPages = 734, pagesRead = 500),
     Book(id = 10, title = "Harry Potter and the Order of the Phoenix", author = "J.K. Rowling", imageUrl = R.drawable.order, userRating = 4.8f, dateAdded = "2024-10-01", review = "The fight against dark forces intensifies.", totalPages = 766, pagesRead = 300),
-    Book(id = 11, title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = R.drawable.phoenix, userRating = 4.9f, dateAdded = "2024-10-11", review = "A deep dive into Voldemort's past and Harry's future.", totalPages = 652, pagesRead = 650),
+    Book(id = 11, title = "Harry Potter and the Half-Blood Prince", author = "J.K. Rowling", imageUrl = R.drawable.phoenix, userRating = 4.5f, dateAdded = "2024-10-11", review = "A deep dive into Voldemort's past and Harry's future.", totalPages = 652, pagesRead = 650),
     Book(id = 12, title = "Harry Potter and the Deathly Hallows", author = "J.K. Rowling", imageUrl = R.drawable.deathly, userRating = 4.0f, dateAdded = "2024-08-01", review = "A gripping conclusion to the series.", totalPages = 759, pagesRead = 200),
     Book(id = 13, title = "Adventures of Huckleberry Finn", author = "Mark Twain", imageUrl = R.drawable.huckleberry, userRating = 4.5f, dateAdded = "2024-05-01", review = "An exploration of freedom and morality.", totalPages = 366, pagesRead = 180),
     Book(id = 14, title = "The Fault in Our Stars", author = "John Green", imageUrl = R.drawable.fault, userRating = 2.7f, dateAdded = "2024-04-09", review = "A heartbreaking yet beautiful love story.", totalPages = 313, pagesRead = 100),
