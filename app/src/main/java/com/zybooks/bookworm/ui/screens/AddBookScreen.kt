@@ -23,6 +23,12 @@ fun AddBookScreen(navController: NavHostController) {
     var review by remember { mutableStateOf("") } // Review input
     var pagesRead by remember { mutableIntStateOf(0) } // Pages read input
     var totalPages by remember { mutableIntStateOf(0) } // Example total pages for the book
+    var genre by remember { mutableStateOf("") }
+    var description by remember { mutableStateOf("") }
+    var isbn by remember { mutableStateOf("") } // Review input
+    var publishDate by remember { mutableStateOf("") } // Pages read input
+    var authorBio by remember { mutableStateOf("") } // Example total pages for the book
+
 
     fun addBook() {
         if (title.isNotEmpty() && author.isNotEmpty() && imageUrl.isNotEmpty()) {
@@ -36,7 +42,12 @@ fun AddBookScreen(navController: NavHostController) {
                 dateAdded = Calendar.getInstance().time.toString(), // For example, use the current date
                 review = review, // Add review
                 totalPages = totalPages,
-                pagesRead = pagesRead // Add pages read
+                pagesRead = pagesRead,
+                genre = genre,
+                description = description,
+                isbn = isbn,
+                publishDate = publishDate,
+                authorBio = authorBio// Add pages read
             )
             sampleBooks.add(newBook)  // Update the list with the new book
             navController.navigate("bookDetails/${newBook.id}")  // Navigate to the book's details page
