@@ -60,12 +60,14 @@ fun EditBookScreen(bookId: Int, navController: NavHostController) {
 
                 Spacer(modifier = Modifier.height(8.dp))
 
+                //need to add option to upload image
                 Text(text = "Image URL", style = MaterialTheme.typography.labelLarge)
                 OutlinedTextField(
-                    value = imageUrl,
-                    onValueChange = { imageUrl = it},
+                    value = imageUrl.toString(),
+                    onValueChange = { imageUrl = it },
                     modifier = Modifier.fillMaxWidth()
                 )
+
 
                 Spacer(modifier = Modifier.height(16.dp))
 
