@@ -18,7 +18,7 @@ import coil.compose.AsyncImage
 import com.zybooks.bookworm.sampleBooks
 
 @Composable
-fun BookDetailsScreen(bookId: Int, navController: NavHostController) {
+fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
     val book = sampleBooks.find { it.id == bookId }
 
     if (book != null) {
