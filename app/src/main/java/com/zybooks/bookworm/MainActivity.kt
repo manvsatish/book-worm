@@ -49,8 +49,6 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
 import com.zybooks.bookworm.Book
 import kotlinx.coroutines.Dispatchers
 
