@@ -12,6 +12,7 @@ import com.zybooks.bookworm.sampleBooks
 import kotlin.math.roundToInt
 import java.util.Calendar
 import android.util.Log
+import androidx.compose.foundation.lazy.LazyColumn
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -21,14 +22,13 @@ fun AddBookScreen(navController: NavHostController) {
     var author by remember { mutableStateOf("") }
     var imageUrl by remember { mutableStateOf("") }
     var userRating by remember { mutableFloatStateOf(0f) }
-    var review by remember { mutableStateOf("") } // Review input
-    var pagesRead by remember { mutableIntStateOf(0) } // Pages read input
-    var totalPages by remember { mutableIntStateOf(0) } // Example total pages for the book
+    var review by remember { mutableStateOf("") }
+    var pagesRead by remember { mutableIntStateOf(0) }
+    var totalPages by remember { mutableIntStateOf(0) }
     var genre by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-    var isbn by remember { mutableStateOf("") } // Review input
-    var publishDate by remember { mutableStateOf("") } // Pages read input
-    var authorBio by remember { mutableStateOf("") } // Example total pages for the book
+    var authorBio by remember { mutableStateOf("") }
+    var userReview by remember { mutableStateOf("") }
 
 
     fun addBook() {
@@ -50,9 +50,8 @@ fun AddBookScreen(navController: NavHostController) {
                 pagesRead = pagesRead,
                 genre = genre,
                 description = description,
-                isbn = isbn,
-                publishDate = publishDate,
-                authorBio = authorBio// Add pages read
+                authorBio = authorBio,// Add pages read,
+                userReview = userReview
             )
             sampleBooks.add(newBook)
             Log.d("AddBookScreen", "Book added: $newBook")
@@ -72,89 +71,109 @@ fun AddBookScreen(navController: NavHostController) {
             TopAppBar(title = { Text("Add a Book") })
         },
         content = { padding ->
-            Column(modifier = Modifier.padding(padding).fillMaxSize()) {
-                // Title Input
-                TextField(
-                    value = title,
-                    onValueChange = { title = it },
-                    label = { Text("Title") },
-                    modifier = Modifier.fillMaxWidth().padding(16.dp)
-                )
-
-                // Author Input
-                TextField(
-                    value = author,
-                    onValueChange = { author = it },
-                    label = { Text("Author") },
-                    modifier = Modifier.fillMaxWidth().padding(16.dp)
-                )
-
-                // Image URL Input
-                TextField(
-                    value = imageUrl,
-                    onValueChange = { imageUrl = it },
-                    label = { Text("Image URL") },
-                    modifier = Modifier.fillMaxWidth().padding(16.dp)
-                )
-
-                // Rating Input (Slider for better experience)
-                Slider(
-                    value = userRating,
-                    onValueChange = { userRating = (it * 10).roundToInt() / 10f }, // Round to 1 decimal place
-                    valueRange = 0f..5f,
-                    steps = 50, // 50 steps for 0.1 increments
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-
-                Text(
-                    text = "Rating: $userRating",
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-                // Review Input (TextField)
-                Text(
-                    text = "Your Review:",
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-
-                TextField(
-                    value = review,
-                    onValueChange = { review = it },
-                    label = { Text("Enter your review...") },
-                    modifier = Modifier.fillMaxWidth().padding(16.dp),
-                    maxLines = 3
-                )
-
-                // Total Pages
-                Text(
-                    text ="How many pages does this book have?",
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-                TextField(
-                    value = totalPages.toString(),
-                    onValueChange = { totalPages = it.toIntOrNull() ?: 0 }, // Validate input as integer
-                    label = { Text("Total Pages") },
-                    modifier = Modifier.fillMaxWidth().padding(16.dp)
-                )
-
-                // Pages Read Input (Slider)
-                Text(
-                    text = "Pages Read: $pagesRead / $totalPages",
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-                Slider(
-                    value = pagesRead.toFloat(),
-                    onValueChange = { pagesRead = it.roundToInt() },
-                    valueRange = 0f..totalPages.toFloat(),
-                    steps = if (totalPages == 0) 0 else totalPages - 1, // for a total of `totalPages` discrete steps
-                    modifier = Modifier.padding(horizontal = 16.dp)
-                )
-
-                // Submit Button
-                Button(
-                    onClick = { addBook() },
-                    modifier = Modifier.fillMaxWidth().padding(16.dp)
-                ) {
-                    Text("Add Book")
+            LazyColumn(modifier = Modifier.padding(padding)) {
+                item {
+                    TextField(
+                        value = title,
+                        onValueChange = { title = it },
+                        label = { Text("Title") },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp)
+                    )
+                }
+                item {
+                    TextField(
+                        value = author,
+                        onValueChange = { author = it },
+                        label = { Text("Author") },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp)
+                    )
+                }
+                item {
+                    TextField(
+                        value = imageUrl,
+                        onValueChange = { imageUrl = it },
+                        label = { Text("Image URL") },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp)
+                    )
+                }
+                item {
+                    Slider(
+                        value = userRating,
+                        onValueChange = { userRating = (it * 10).roundToInt() / 10f },
+                        valueRange = 0f..5f,
+                        steps = 50,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    Text(
+                        text = "Rating: $userRating",
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                }
+                item {
+                    Text(
+                        text = "Your Review:",
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    TextField(
+                        value = review,
+                        onValueChange = { review = it },
+                        label = { Text("Enter your review...") },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        maxLines = 3
+                    )
+                }
+                item {
+                    Text(
+                        text = "How many pages does this book have?",
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    TextField(
+                        value = totalPages.toString(),
+                        onValueChange = { totalPages = it.toIntOrNull() ?: 0 },
+                        label = { Text("Total Pages") },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp)
+                    )
+                }
+                item {
+                    Text(
+                        text = "Pages Read: $pagesRead / $totalPages",
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                    Slider(
+                        value = pagesRead.toFloat(),
+                        onValueChange = { pagesRead = it.roundToInt() },
+                        valueRange = 0f..totalPages.toFloat(),
+                        steps = if (totalPages == 0) 0 else totalPages - 1,
+                        modifier = Modifier.padding(horizontal = 16.dp)
+                    )
+                }
+                item {
+                    TextField(
+                        value = genre,
+                        onValueChange = { genre = it },
+                        label = { Text("Genre") },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp)
+                    )
+                    TextField(
+                        value = description,
+                        onValueChange = { description = it },
+                        label = { Text("Description") },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp)
+                    )
+                    TextField(
+                        value = authorBio,
+                        onValueChange = { authorBio = it },
+                        label = { Text("Author Bio") },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp)
+                    )
+                }
+                item {
+                    Button(
+                        onClick = { addBook() },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp)
+                    ) {
+                        Text("Add Book")
+                    }
                 }
             }
         }

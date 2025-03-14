@@ -193,9 +193,7 @@ fun BookCover(book: Book, navController: NavHostController) {
 fun BookDetailsInfo(book: Book) {
     Column(modifier = Modifier.padding(horizontal = 8.dp)) {
         BookDetailRow(label = "Page Count", value = "${book.totalPages}")
-        BookDetailRow(label = "ISBN", value = book.isbn)
         BookDetailRow(label = "Language", value = "English")
-        BookDetailRow(label = "Published", value = book.publishDate)
     }
 }
 

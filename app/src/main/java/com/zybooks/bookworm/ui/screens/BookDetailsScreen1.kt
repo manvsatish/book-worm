@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -23,7 +24,7 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
 
     if (book != null) {
         Scaffold(
-            topBar = { BookwormHeader(navController) },  // Using the BookwormHeader
+            topBar = { BookwormHeader(navController) },
             content = { paddingValues ->
                 Column(
                     modifier = Modifier
@@ -45,17 +46,26 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
                     Text(
                         text = book.title,
                         style = MaterialTheme.typography.headlineMedium,
-                        modifier = Modifier.padding(bottom = 4.dp)
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
 
+                    Spacer(modifier = Modifier.height(4.dp))
+
                     Text(
-                        text = "Author: ${book.author}",
-                        style = MaterialTheme.typography.bodyLarge
+                        text = book.author,
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Row(verticalAlignment = Alignment.CenterVertically) {
+                    Row(
+                        horizontalArrangement = Arrangement.Center,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
                         repeat(5) { index ->
                             val starIcon = if (index < book.userRating) Icons.Filled.Star else Icons.Outlined.Star
                             Icon(
@@ -71,10 +81,19 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    // Show More Button
+                    Text(
+                        text = book.userReview,
+                        style = MaterialTheme.typography.bodyLarge,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.align(Alignment.CenterHorizontally)
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
                     Button(
                         onClick = { navController.navigate("BookDetailsScreen2/$bookId") },
-                        shape = RoundedCornerShape(8.dp)
+                        shape = RoundedCornerShape(8.dp),
+                        modifier = Modifier.fillMaxWidth()
                     ) {
                         Text("Show More")
                         Spacer(modifier = Modifier.width(8.dp))
@@ -85,7 +104,13 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
         )
     } else {
         Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-            Text("Book not found", style = MaterialTheme.typography.bodyLarge)
+            Text(
+                "Book not found",
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.align(Alignment.CenterHorizontally)
+            )
         }
     }
 }
+
+
