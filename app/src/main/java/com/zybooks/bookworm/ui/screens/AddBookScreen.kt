@@ -13,10 +13,13 @@ import kotlin.math.roundToInt
 import java.util.Calendar
 import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
+import com.zybooks.bookworm.ui.theme.BookwormTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddBookScreen(navController: NavHostController) {
+    BookwormTheme {
+
     // State to hold the input values
     var title by remember { mutableStateOf("") }
     var author by remember { mutableStateOf("") }
@@ -32,9 +35,13 @@ fun AddBookScreen(navController: NavHostController) {
 
 
     fun addBook() {
-        Log.d("AddBookScreen", "Attempting to add book: Title = $title, Author = $author, Image URL = $imageUrl")
+        Log.d(
+            "AddBookScreen",
+            "Attempting to add book: Title = $title, Author = $author, Image URL = $imageUrl"
+        )
 
-        val finalImageUrl = if (imageUrl.isNotEmpty()) imageUrl else "https://cotsen.org/wp-content/uploads/2019/07/placeholder.jpg"
+        val finalImageUrl =
+            if (imageUrl.isNotEmpty()) imageUrl else "https://cotsen.org/wp-content/uploads/2019/07/placeholder.jpg"
 
         if (title.isNotEmpty() && author.isNotEmpty() && imageUrl.isNotEmpty()) {
             // Add the new book to the list (you might need to update your `sampleBooks` list here)
@@ -178,4 +185,5 @@ fun AddBookScreen(navController: NavHostController) {
             }
         }
     )
+    }
 }

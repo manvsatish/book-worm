@@ -32,134 +32,147 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.zybooks.bookworm.Book
+import com.zybooks.bookworm.ui.theme.BookwormTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
-    val book = sampleBooks.find { it.id == bookId }
+    BookwormTheme {
+        val book = sampleBooks.find { it.id == bookId }
 
-    if (book != null) {
-        val booksByAuthor = getBooksByAuthor(sampleBooks, book)
-        Scaffold(
-            topBar = { BookwormBackHeader(navController) },
-            content = { paddingValues ->
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
-                        .verticalScroll(rememberScrollState())
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.Start
-                ) {
-                    Row(
-                        verticalAlignment = Alignment.Top,
-                        modifier = Modifier.fillMaxWidth()
+        if (book != null) {
+            val booksByAuthor = getBooksByAuthor(sampleBooks, book)
+            Scaffold(
+                topBar = { BookwormBackHeader(navController) },
+                content = { paddingValues ->
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(paddingValues)
+                            .verticalScroll(rememberScrollState())
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.Start
                     ) {
-                        AsyncImage(
-                            model = book.imageUrl,
-                            contentDescription = "Book cover",
-                            modifier = Modifier
-                                .size(height = 250.dp, width = 175.dp)
-                                .padding(start = 8.dp)
-                        )
-
-                        Spacer(modifier = Modifier.width(20.dp))
-
-                        Column(modifier = Modifier.fillMaxWidth()) {
-                            Text(
-                                text = book.title,
-                                style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Black)
-                            )
-                            Spacer(modifier = Modifier.height(8.dp))
-
-                            Text(
-                                text = book.author,
-                                style = MaterialTheme.typography.bodyLarge
+                        Row(
+                            verticalAlignment = Alignment.Top,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            AsyncImage(
+                                model = book.imageUrl,
+                                contentDescription = "Book cover",
+                                modifier = Modifier
+                                    .size(height = 250.dp, width = 175.dp)
+                                    .padding(start = 8.dp)
                             )
 
-                            Spacer(modifier = Modifier.height(8.dp))
+                            Spacer(modifier = Modifier.width(20.dp))
 
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                repeat(5) { index ->
-                                    val starIcon = if (index < book.userRating) Icons.Filled.Star else Icons.Outlined.Star
-                                    Icon(
-                                        imageVector = starIcon,
-                                        contentDescription = "Star Rating",
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(24.dp)
+                            Column(modifier = Modifier.fillMaxWidth()) {
+                                Text(
+                                    text = book.title,
+                                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Black)
+                                )
+                                Spacer(modifier = Modifier.height(8.dp))
+
+                                Text(
+                                    text = book.author,
+                                    style = MaterialTheme.typography.bodyLarge
+                                )
+
+                                Spacer(modifier = Modifier.height(8.dp))
+
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    repeat(5) { index ->
+                                        val starIcon =
+                                            if (index < book.userRating) Icons.Filled.Star else Icons.Outlined.Star
+                                        Icon(
+                                            imageVector = starIcon,
+                                            contentDescription = "Star Rating",
+                                            tint = MaterialTheme.colorScheme.primary,
+                                            modifier = Modifier.size(24.dp)
+                                        )
+                                    }
+                                    Text(
+                                        text = "${book.userRating}/5",
+                                        style = MaterialTheme.typography.bodyLarge
                                     )
                                 }
-                                Text(text = "${book.userRating}/5", style = MaterialTheme.typography.bodyLarge)
                             }
                         }
-                    }
 
-                    Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(12.dp))
 
-                    Text(
-                        text = "Genre | ${book.genre}",
-                        style = MaterialTheme.typography.bodyLarge,
-                        modifier = Modifier.padding(start = 8.dp)  // Adjust this value to suit your design
-                    )
+                        Text(
+                            text = "Genre | ${book.genre}",
+                            style = MaterialTheme.typography.bodyLarge,
+                            modifier = Modifier.padding(start = 8.dp)  // Adjust this value to suit your design
+                        )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
-                    Text(
-                        text = book.description,
-                        modifier = Modifier.padding(8.dp),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
+                        Text(
+                            text = book.description,
+                            modifier = Modifier.padding(8.dp),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
-                    BookDetailsInfo(book)
+                        BookDetailsInfo(book)
 
-                    Spacer(modifier = Modifier.height(16.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
 
-                    Text(
-                        text = "About the Author",
-                        modifier = Modifier.padding(top = 8.dp, start = 8.dp),
-                        style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
-                    )
-                    Text(
-                        text = book.authorBio,
-                        modifier = Modifier.padding(8.dp),
-                        style = MaterialTheme.typography.bodyLarge
-                    )
+                        Text(
+                            text = "About the Author",
+                            modifier = Modifier.padding(top = 8.dp, start = 8.dp),
+                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                        )
+                        Text(
+                            text = book.authorBio,
+                            modifier = Modifier.padding(8.dp),
+                            style = MaterialTheme.typography.bodyLarge
+                        )
 
-                    Spacer(modifier = Modifier.width(16.dp))
+                        Spacer(modifier = Modifier.width(16.dp))
 
-                    FloatingActionButton(
-                        onClick = { navController.navigate("editBook/$bookId")},
-                        containerColor = Color.White,
-                        contentColor = Color.Black
-                    )
-                    {
-                        Row (
-                            modifier = Modifier.wrapContentWidth().padding(start = 5.dp, end=5.dp),
-                            horizontalArrangement = Arrangement.Center,
-                            verticalAlignment = Alignment.CenterVertically
-                        ) {
-                            Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
-                            Spacer(modifier=Modifier.height(2.5.dp))
-                            Text("Edit details", style = MaterialTheme.typography.labelSmall)
+                        FloatingActionButton(
+                            onClick = { navController.navigate("editBook/$bookId") },
+                            containerColor = Color.White,
+                            contentColor = Color.Black
+                        )
+                        {
+                            Row(
+                                modifier = Modifier.wrapContentWidth()
+                                    .padding(start = 5.dp, end = 5.dp),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Edit,
+                                    contentDescription = "Edit Book"
+                                )
+                                Spacer(modifier = Modifier.height(2.5.dp))
+                                Text("Edit details", style = MaterialTheme.typography.labelSmall)
+                            }
                         }
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        // Placeholder for more novels from this author
+                        Text(
+                            "More Novels from this Author ...",
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        HorizontalScrollableBookRow(booksByAuthor, navController)
                     }
-                    Spacer(modifier = Modifier.height(8.dp))
-
-                    // Placeholder for more novels from this author
-                    Text("More Novels from this Author ...",
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
-                        modifier = Modifier.padding(start = 8.dp))
-
-                    Spacer(modifier = Modifier.height(16.dp))
-
-                    HorizontalScrollableBookRow(booksByAuthor, navController)
                 }
-            }
-        )
-    } else {
-        Text("Book not found", style = MaterialTheme.typography.bodyLarge)
+            )
+        } else {
+            Text("Book not found", style = MaterialTheme.typography.bodyLarge)
+        }
     }
 
 }
