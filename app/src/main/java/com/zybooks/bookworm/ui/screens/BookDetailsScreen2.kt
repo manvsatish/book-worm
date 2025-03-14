@@ -135,7 +135,15 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                         contentColor = Color.Black
                     )
                     {
-                        Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
+                        Row (
+                            modifier = Modifier.wrapContentWidth().padding(start = 5.dp, end=5.dp),
+                            horizontalArrangement = Arrangement.Center,
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
+                            Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
+                            Spacer(modifier=Modifier.height(2.5.dp))
+                            Text("Edit details", style = MaterialTheme.typography.labelSmall)
+                        }
                     }
                     Spacer(modifier = Modifier.height(8.dp))
 
