@@ -41,7 +41,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
     if (book != null) {
         val booksByAuthor = getBooksByAuthor(sampleBooks, book)
         Scaffold(
-            topBar = { BookwormHeader(navController) },
+            topBar = { BookwormBackHeader(navController) },
             content = { paddingValues ->
                 Column(
                     modifier = Modifier
@@ -223,51 +223,58 @@ fun BookDetailRow(label: String, value: String) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookwormHeader(navController: NavHostController) {
+fun BookwormBackHeader(navController: NavHostController) {
     Box {
         TopAppBar(
             title = {
-                Text(
-                    "BOOKWORM",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
-                    color = Color.Black,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween, // Ensures proper spacing
+                    verticalAlignment = Alignment.CenterVertically // Aligns items on the same axis
+                ) {
+                    Text(
+                        "BOOKWORM",
+                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
+                        color = Color.Black
+                    )
+
+                    IconButton(onClick = {navController.navigate("settings") }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.settings), // Replace with your actual drawable resource for profile icon
+                            contentDescription = "Settings",
+                            modifier = Modifier.size(45.dp).padding(end = 16.dp) // Match padding to original header
+                        )
+                    }
+                }
             },
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.Black  // Ensuring the icon is visible against the background
+                        tint = Color.Black // Ensuring visibility against a white background
                     )
                 }
             },
-            actions = {
-                // Profile Icon Button
-                IconButton(onClick = { /* Handle profile icon click */ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.userprofile),
-                        contentDescription = "Profile",
-                        modifier = Modifier.size(45.dp).padding(bottom = 12.dp, end = 4.dp)
-                    )
-                }
-            },
+//            actions = {
+//
+//            },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.White
             ),
-            modifier = Modifier.height(64.dp)
+            modifier = Modifier.height(64.dp).padding(top = 4.dp)
         )
 
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .width(376.dp)
+                .fillMaxWidth() // Ensures the border spans the entire width of the screen
                 .height(2.dp)
                 .background(Color.Black)
         )
     }
 }
+
 
 fun getBooksByAuthor(books: List<Book>, currentBook: Book): List<Book> {
     return books.filter { it.author == currentBook.author && it.id != currentBook.id }

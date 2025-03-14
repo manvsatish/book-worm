@@ -49,8 +49,6 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
-import com.bumptech.glide.integration.compose.GlideImage
 import com.zybooks.bookworm.Book
 import kotlinx.coroutines.Dispatchers
 
@@ -99,7 +97,7 @@ fun BookwormApp(navController: NavHostController) {
 
     BookwormTheme {
         Scaffold(
-            topBar = { BookwormHeader() },
+            topBar = { BookwormHeader(navController) },
             floatingActionButton = { FloatingActionButtons(navController) },
             content = { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues).padding(top = 0.dp)) {
@@ -145,37 +143,40 @@ fun FloatingActionButtons(navController: NavHostController) {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookwormHeader() {
+fun BookwormHeader(navController: NavHostController) {
     Box {
         TopAppBar(
             title = {
-                Text(
-                    "BOOKWORM",
-                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
-                    color = Color.Black,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-            },
-            actions = {
-                // Profile Icon Button
-                IconButton(onClick = { /* Handle profile icon click */ }) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.userprofile),
-                        contentDescription = "Profile",
-                        modifier = Modifier.size(45.dp).padding(bottom = 12.dp, end = 4.dp)  // Set the size of the icon
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween, // Ensures proper spacing
+                    verticalAlignment = Alignment.CenterVertically // Aligns items on the same axis
+                ) {
+                    Text(
+                        "BOOKWORM",
+                        style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
+                        color = Color.Black
                     )
+
+                    IconButton(onClick = { navController.navigate("settings") }) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.settings),
+                            contentDescription = "Settings",
+                            modifier = Modifier.size(45.dp).padding(end = 16.dp)  // Set the size of the icon
+                        )
+                    }
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.White
             ),
-            modifier = Modifier.height(64.dp)
+            modifier = Modifier.height(64.dp).padding(top=4.dp)
         )
 
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .width(376.dp)
+                .fillMaxWidth()
                 .height(2.dp)
                 .background(Color.Black)
         )

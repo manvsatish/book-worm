@@ -11,13 +11,18 @@ import com.zybooks.bookworm.ui.screens.BookDetailsScreen2
 import com.zybooks.bookworm.BookwormApp
 import com.zybooks.bookworm.ui.screens.EditBookScreen
 import com.zybooks.bookworm.ui.screens.AddBookScreen
+import com.zybooks.bookworm.ui.screens.SettingsScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {
     NavHost(navController = navController, startDestination = "home") {
         composable("home") { BookwormApp(navController) }
         composable("addBook") { AddBookScreen(navController) }
-        composable("editBook/{bookId}") { backStackEntry ->
+        composable("settings") { SettingsScreen(navController) }
+        composable(
+            "editBook/{bookId}",
+            arguments = listOf(navArgument("bookId") { type = NavType.IntType })
+        ) { backStackEntry ->
             val bookId = backStackEntry.arguments?.getInt("bookId") ?: -1
             EditBookScreen(bookId, navController) }
         composable(
