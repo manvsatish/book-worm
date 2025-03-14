@@ -77,6 +77,12 @@ fun EditBookScreen(bookId: Int, navController: NavHostController) {
                 ) {
                     Button(onClick = {
                         // Handle save logic (Update the book details)
+                        book?.let {
+                            it.title = title
+                            it.author = author
+                            it.userRating = rating
+                            it.imageUrl = imageUrl
+                        }
                         navController.popBackStack()
                     }) {
                         Text("Save")

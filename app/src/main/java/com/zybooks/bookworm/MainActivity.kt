@@ -346,9 +346,9 @@ val sampleBooks = mutableListOf(
 // Book data class
 data class Book(
     val id: Int,
-    val title: String,
-    val author: String,
-    val imageUrl: String,
+    var title: String,
+    var author: String,
+    var imageUrl: String,
     var userRating: Float,
     var dateAdded: String,
     var review: String,
