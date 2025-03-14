@@ -125,7 +125,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                         Text(
                             text = "About the Author",
                             modifier = Modifier.padding(top = 8.dp, start = 8.dp),
-                            style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
+                            style = MaterialTheme.typography.bodyLarge
                         )
                         Text(
                             text = book.authorBio,
@@ -152,6 +152,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                                     contentDescription = "Edit Book"
                                 )
                                 Spacer(modifier = Modifier.height(2.5.dp))
+                                Spacer(modifier = Modifier.width(5.dp))
                                 Text("Edit details", style = MaterialTheme.typography.labelSmall)
                             }
                         }
@@ -179,11 +180,13 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
 
 @Composable
 fun HorizontalScrollableBookRow(books: List<Book>, navController: NavHostController) {
-    Row(
-        modifier = Modifier.horizontalScroll(rememberScrollState())
-    ) {
-        for (book in books) {
-            BookCover(book, navController)
+    BookwormTheme {
+        Row(
+            modifier = Modifier.horizontalScroll(rememberScrollState())
+        ) {
+            for (book in books) {
+                BookCover(book, navController)
+            }
         }
     }
 }
@@ -203,7 +206,7 @@ fun BookCover(book: Book, navController: NavHostController) {
         )
         Text(
             text = book.title,
-            style = MaterialTheme.typography.bodySmall,
+            style = MaterialTheme.typography.labelSmall,
             textAlign = TextAlign.Center,
             modifier = Modifier.width(120.dp)
         )

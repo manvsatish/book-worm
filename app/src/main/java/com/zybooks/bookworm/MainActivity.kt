@@ -43,6 +43,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
@@ -204,8 +205,9 @@ fun BookItem(book: Book, onClick: () -> Unit) {
     Column(
         modifier = Modifier
             .padding(8.dp)
-            .size(width = 107.dp, height = 160.dp)
-            .clickable { onClick() },
+            .clickable { onClick() }
+            .width(120.dp)  // Increased width
+            .height(180.dp), // Increased height to accommodate two lines of text better
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -219,15 +221,18 @@ fun BookItem(book: Book, onClick: () -> Unit) {
                 model = book.imageUrl,
                 contentDescription = "Book Cover",
                 contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(0.85f)
+                modifier = Modifier.fillMaxSize()
             )
         }
         Text(
             text = book.title,
-            style = MaterialTheme.typography.labelSmall.copy(fontWeight = androidx.compose.ui.text.font.FontWeight.Bold),
+            style = MaterialTheme.typography.labelSmall.copy(
+                fontWeight = FontWeight.Bold,
+                fontSize = 12.sp // Adjusted font size
+            ),
             textAlign = TextAlign.Center,
+            maxLines = 2,
+            overflow = TextOverflow.Ellipsis,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 4.dp)

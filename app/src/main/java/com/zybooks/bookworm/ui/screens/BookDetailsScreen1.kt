@@ -47,7 +47,7 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
 
                         Text(
                             text = book.title,
-                            style = MaterialTheme.typography.headlineMedium,
+                            style = MaterialTheme.typography.titleLarge,
                             textAlign = TextAlign.Center,
                             modifier = Modifier.align(Alignment.CenterHorizontally)
                         )
@@ -98,7 +98,11 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
                             shape = RoundedCornerShape(8.dp),
                             modifier = Modifier.fillMaxWidth()
                         ) {
-                            Text("Show More")
+                            Text(
+                                text = "Show More",
+                                style = MaterialTheme.typography.labelSmall,
+                                textAlign = TextAlign.Center
+                            )
                             Spacer(modifier = Modifier.width(8.dp))
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowForward,
