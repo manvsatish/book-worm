@@ -40,6 +40,10 @@ android {
 }
 
 dependencies {
+    implementation(libs.compose)
+    implementation(libs.coil3.coil.compose)
+    implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.compose.v140)
     implementation(libs.coil.compose) // Check for the latest version on https://github.com/coil-kt/coil
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -49,6 +53,10 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    implementation("io.coil-kt:coil-compose:2.4.0")
+
+    
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.android)
     testImplementation(libs.junit)

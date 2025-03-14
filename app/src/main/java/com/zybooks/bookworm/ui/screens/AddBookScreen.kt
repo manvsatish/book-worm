@@ -11,6 +11,7 @@ import com.zybooks.bookworm.R
 import com.zybooks.bookworm.sampleBooks
 import kotlin.math.roundToInt
 import java.util.Calendar
+import android.util.Log
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,13 +32,17 @@ fun AddBookScreen(navController: NavHostController) {
 
 
     fun addBook() {
+        Log.d("AddBookScreen", "Attempting to add book: Title = $title, Author = $author, Image URL = $imageUrl")
+
+        val finalImageUrl = if (imageUrl.isNotEmpty()) imageUrl else "https://cotsen.org/wp-content/uploads/2019/07/placeholder.jpg"
+
         if (title.isNotEmpty() && author.isNotEmpty() && imageUrl.isNotEmpty()) {
             // Add the new book to the list (you might need to update your `sampleBooks` list here)
             val newBook = Book(
                 id = sampleBooks.size,  // Assuming unique ID is based on the list size
                 title = title,
                 author = author,
-                imageUrl = R.drawable.placeholder_cover, // Convert string to a valid resource ID if needed
+                imageUrl = finalImageUrl, // Convert string to a valid resource ID if needed
                 userRating = userRating,
                 dateAdded = Calendar.getInstance().time.toString(), // For example, use the current date
                 review = review, // Add review
@@ -49,8 +54,16 @@ fun AddBookScreen(navController: NavHostController) {
                 publishDate = publishDate,
                 authorBio = authorBio// Add pages read
             )
-            sampleBooks.add(newBook)  // Update the list with the new book
-            navController.navigate("bookDetails/${newBook.id}")  // Navigate to the book's details page
+            sampleBooks.add(newBook)
+            Log.d("AddBookScreen", "Book added: $newBook")
+            Log.d("AddBookScreen", "Navigating back to home screen")
+
+            navController.navigate("home") {
+                popUpTo("home") { inclusive = true }
+            }
+
+        } else {
+            Log.d("AddBookScreen", "Required fields are empty")
         }
     }
 
