@@ -19,22 +19,22 @@ val InstrumentSans = FontFamily(
 val Typography = Typography(
     bodyLarge = TextStyle(
         fontFamily = InstrumentSans,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.ExtraBold,
         fontSize = 16.sp,
         lineHeight = 24.sp,
         letterSpacing = 0.5.sp
     ),
     titleLarge = TextStyle(
         fontFamily = InstrumentSans,
-        fontWeight = FontWeight.Black,
-        fontSize = 22.sp,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 25.sp,
         lineHeight = 28.sp,
         letterSpacing = 0.sp
     ),
     labelSmall = TextStyle(
         fontFamily = InstrumentSans,
         fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
+        fontSize = 12.sp,
         lineHeight = 16.sp,
         letterSpacing = 0.5.sp
     )

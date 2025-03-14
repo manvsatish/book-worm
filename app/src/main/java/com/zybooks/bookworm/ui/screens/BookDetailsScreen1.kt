@@ -23,7 +23,7 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
 
     if (book != null) {
         Scaffold(
-            topBar = { BookwormHeader(navController) },  // Using the BookwormHeader
+            topBar = { BookwormBackHeader(navController) },  // Using the BookwormHeader
             content = { paddingValues ->
                 Column(
                     modifier = Modifier
