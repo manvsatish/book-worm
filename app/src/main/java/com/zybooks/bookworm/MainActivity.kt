@@ -83,11 +83,11 @@ fun BookwormApp(navController: NavHostController) {
             content = { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues).padding(top = 0.dp)) {
                     TopBooksHeader(topBooks = topBooks, userName = "Ken", onBookClick = { id ->
-                        navController.navigate("bookDetails/$id")
+                        navController.navigate("bookDetailsScreen1/$id")
                     })
                     BookGrid(
                         books = sortedBooks,
-                        onBookClick = { bookId -> navController.navigate("bookDetails/$bookId") }
+                        onBookClick = { bookId -> navController.navigate("bookDetailsScreen1/$bookId") }
                     )
                 }
             }
@@ -108,17 +108,17 @@ fun FloatingActionButtons(navController: NavHostController) {
         ) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
         }
-
-        Spacer(modifier = Modifier.width(16.dp))
-
-        FloatingActionButton(
-            onClick = { navController.navigate("editBook")},
-            containerColor = Color.White,
-            contentColor = Color.Black
-        )
-        {
-            Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
-        }
+//
+//        Spacer(modifier = Modifier.width(16.dp))
+//
+//        FloatingActionButton(
+//            onClick = { navController.navigate("editBook")},
+//            containerColor = Color.White,
+//            contentColor = Color.Black
+//        )
+//        {
+//            Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
+//        }
     }
 }
 

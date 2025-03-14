@@ -8,7 +8,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
@@ -31,7 +32,6 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.zybooks.bookworm.Book
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -127,6 +127,16 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                         style = MaterialTheme.typography.bodyLarge
                     )
 
+                    Spacer(modifier = Modifier.width(16.dp))
+
+                    FloatingActionButton(
+                        onClick = { navController.navigate("editBook/$bookId")},
+                        containerColor = Color.White,
+                        contentColor = Color.Black
+                    )
+                    {
+                        Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
+                    }
                     Spacer(modifier = Modifier.height(8.dp))
 
                     // Placeholder for more novels from this author
@@ -229,7 +239,7 @@ fun BookwormHeader(navController: NavHostController) {
             navigationIcon = {
                 IconButton(onClick = { navController.popBackStack() }) {
                     Icon(
-                        imageVector = Icons.Filled.ArrowBack,
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
                         tint = Color.Black  // Ensuring the icon is visible against the background
                     )
