@@ -170,14 +170,16 @@ fun BookwormHeader(navController: NavHostController) {
             colors = TopAppBarDefaults.topAppBarColors(
                 containerColor = Color.White
             ),
-            modifier = Modifier.height(64.dp).padding(top=4.dp)
+            modifier = Modifier
+                .height(64.dp) // Adjust the height if needed
+                .padding(bottom = 8.dp) // Adds padding at the bottom to push the AppBar content up
         )
 
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .fillMaxWidth()
-                .height(2.dp)
+                .width(380.dp)
+                .height(1.dp)
                 .background(Color.Black)
         )
     }
