@@ -133,7 +133,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                             style = MaterialTheme.typography.bodyLarge
                         )
 
-                        Spacer(modifier = Modifier.width(16.dp))
+                        Spacer(modifier = Modifier.height(15.dp))
 
                         FloatingActionButton(
                             onClick = { navController.navigate("editBook/$bookId") },
@@ -156,7 +156,8 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                                 Text("Edit details", style = MaterialTheme.typography.labelSmall)
                             }
                         }
-                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Spacer(modifier = Modifier.height(20.dp))
 
                         // Placeholder for more novels from this author
                         Text(
@@ -204,9 +205,10 @@ fun BookCover(book: Book, navController: NavHostController) {
                     navController.navigate("bookDetails/${book.id}") // Assuming book details screen can be navigated with the book ID
                 }
         )
+        Spacer(modifier = Modifier.height(8.dp))
         Text(
             text = book.title,
-            style = MaterialTheme.typography.labelSmall,
+            style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
             textAlign = TextAlign.Center,
             modifier = Modifier.width(120.dp)
         )

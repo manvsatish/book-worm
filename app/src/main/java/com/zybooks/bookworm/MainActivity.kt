@@ -224,6 +224,7 @@ fun BookItem(book: Book, onClick: () -> Unit) {
                 modifier = Modifier.fillMaxSize()
             )
         }
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = book.title,
             style = MaterialTheme.typography.labelSmall.copy(
@@ -305,6 +306,7 @@ fun TopBookItem(book: Book, onClick: () -> Unit) {
                     .aspectRatio(0.85f)
             )
         }
+        Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = book.title,
             style = MaterialTheme.typography.labelSmall.copy(fontWeight = FontWeight.Bold),
