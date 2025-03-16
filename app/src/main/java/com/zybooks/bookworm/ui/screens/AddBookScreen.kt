@@ -14,6 +14,7 @@ import kotlin.math.roundToInt
 import java.util.Calendar
 import kotlin.math.roundToInt
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.platform.LocalContext
 import com.zybooks.bookworm.storage.BookStorageManager
 import androidx.compose.ui.graphics.Color
@@ -175,10 +176,13 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             modifier = Modifier.fillMaxWidth().padding(16.dp)
                         )
                     }
-                    item{
+                    item {
                         OutlinedButton(
                             onClick = { addBook() },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 4.dp), // Reduced vertical padding
+                            shape = RoundedCornerShape(6.dp), // Less rounded corners
                             colors = ButtonDefaults.outlinedButtonColors(
                                 containerColor = MaterialTheme.colorScheme.onPrimary,
                                 contentColor = MaterialTheme.colorScheme.primary
@@ -188,7 +192,10 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                         }
                         OutlinedButton(
                             onClick = { navController.popBackStack() },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 4.dp), // Reduced vertical padding
+                            shape = RoundedCornerShape(6.dp), // Less rounded corners
                             colors = ButtonDefaults.outlinedButtonColors(
                                 containerColor = Color.Red,
                                 contentColor = Color.White
@@ -197,22 +204,7 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             Text("Cancel")
                         }
                     }
-                }
 
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    OutlinedButton(
-                        onClick = { addBook() },
-                        modifier = Modifier.fillMaxWidth().padding(16.dp),
-                        colors = ButtonDefaults.outlinedButtonColors(
-                            containerColor = MaterialTheme.colorScheme.onPrimary,
-                            contentColor = MaterialTheme.colorScheme.primary
-                        )
-                    ) {
-                        Text("Add Book")
-                    }
                 }
             }
         )
