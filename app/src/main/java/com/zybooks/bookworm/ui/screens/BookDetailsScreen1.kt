@@ -49,6 +49,8 @@ fun BookDetailsScreen1(
                             .background(MaterialTheme.colorScheme.background),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
+                        Spacer(modifier = Modifier.height(16.dp))
+
                         AsyncImage(
                             model = book.imageUrl,
                             contentDescription = "Book cover",
