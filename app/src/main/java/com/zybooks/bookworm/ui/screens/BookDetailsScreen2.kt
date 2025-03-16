@@ -50,9 +50,7 @@ fun BookDetailsScreen2(
 ) {
     BookwormTheme(themeViewModel = themeViewModel) {
         val context = LocalContext.current
-        // Load the books from file (including any changes made)
         val books = BookStorageManager.loadBooks(context)
-        // Find the book with the matching ID.
         val book = books.find { it.id == bookId }
 
         if (book != null) {
@@ -60,7 +58,7 @@ fun BookDetailsScreen2(
             Scaffold(
                 topBar = { BookwormBackHeader(navController) },
                 floatingActionButton = {
-                    val isDarkTheme by themeViewModel.isDarkTheme.collectAsState() // Collect the state
+                    val isDarkTheme by themeViewModel.isDarkTheme.collectAsState()
 
                     FloatingActionButton(
                         onClick = { navController.navigate("editBook/$bookId") },
@@ -139,7 +137,7 @@ fun BookDetailsScreen2(
                         Text(
                             text = "Genre | ${book.genre}",
                             style = MaterialTheme.typography.bodyLarge,
-                            modifier = Modifier.padding(start = 8.dp)  // Adjust this value to suit your design
+                            modifier = Modifier.padding(start = 8.dp)
                         )
 
                         Spacer(modifier = Modifier.height(16.dp))
@@ -169,7 +167,7 @@ fun BookDetailsScreen2(
 
                         Spacer(modifier = Modifier.height(20.dp))
 
-                        // Placeholder for more novels from this author
+
                         Text(
                             "More Novels from this Author ...",
                             style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
@@ -178,7 +176,7 @@ fun BookDetailsScreen2(
 
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        HorizontalScrollableBookRow(booksByAuthor, navController)
+                        HorizontalScrollableBookRow(booksByAuthor, navController, themeViewModel)
                     }
                 }
             )
@@ -190,8 +188,8 @@ fun BookDetailsScreen2(
 }
 
 @Composable
-fun HorizontalScrollableBookRow(books: List<Book>, navController: NavHostController) {
-    BookwormTheme {
+fun HorizontalScrollableBookRow(books: List<Book>, navController: NavHostController, themeViewModel: ThemeViewModel) {
+    BookwormTheme(themeViewModel = themeViewModel) {
         Row(
             modifier = Modifier.horizontalScroll(rememberScrollState())
         ) {
@@ -247,7 +245,7 @@ fun BookDetailRow(label: String, value: String) {
             textAlign = TextAlign.Start
         )
 
-        Spacer(modifier = Modifier.width(16.dp)) // Space between label and value
+        Spacer(modifier = Modifier.width(16.dp))
 
         Text(
             text = value,
@@ -265,8 +263,8 @@ fun BookwormBackHeader(navController: NavHostController) {
             title = {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween, // Ensures proper spacing
-                    verticalAlignment = Alignment.CenterVertically // Aligns items on the same axis
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
                     Text(
                         "BOOKWORM",
@@ -276,9 +274,9 @@ fun BookwormBackHeader(navController: NavHostController) {
 
                     IconButton(onClick = {navController.navigate("settings") }) {
                         Icon(
-                            painter = painterResource(id = R.drawable.settings), // Replace with your actual drawable resource for profile icon
+                            painter = painterResource(id = R.drawable.settings),
                             contentDescription = "Settings",
-                            modifier = Modifier.size(45.dp).padding(end = 16.dp) // Match padding to original header
+                            modifier = Modifier.size(45.dp).padding(end = 16.dp)
                         )
                     }
                 }
@@ -288,7 +286,7 @@ fun BookwormBackHeader(navController: NavHostController) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = MaterialTheme.colorScheme.onPrimary // Ensuring visibility against a white background
+                        tint = MaterialTheme.colorScheme.onPrimary
                     )
                 }
             },
@@ -296,14 +294,14 @@ fun BookwormBackHeader(navController: NavHostController) {
                 containerColor = MaterialTheme.colorScheme.surface
             ),
             modifier = Modifier
-                .height(64.dp) // Adjust the height if needed
-                .padding(top = 8.dp, bottom = 8.dp) // Adds padding at the bottom to push the AppBar content up
+                .height(64.dp)
+                .padding(bottom = 8.dp)
         )
 
         Box(
             modifier = Modifier
                 .align(Alignment.BottomCenter)
-                .width(380.dp) // Ensures the border spans the entire width of the screen
+                .width(380.dp)
                 .height(1.dp)
                 .background(MaterialTheme.colorScheme.onPrimary)
         )

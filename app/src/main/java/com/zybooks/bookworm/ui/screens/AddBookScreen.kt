@@ -22,7 +22,7 @@ import com.zybooks.bookworm.ui.viewmodel.ThemeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewModel) {
+fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewModel, books: MutableList<Book>) {
     val context = LocalContext.current  // Get the current context using Compose
     BookwormTheme(themeViewModel = themeViewModel) {
         // State to hold the input values
@@ -30,7 +30,6 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
         var author by remember { mutableStateOf("") }
         var imageUrl by remember { mutableStateOf("") }
         var userRating by remember { mutableFloatStateOf(0f) }
-        var review by remember { mutableStateOf("") }
         var pagesRead by remember { mutableIntStateOf(0) }
         var totalPages by remember { mutableIntStateOf(0) }
         var genre by remember { mutableStateOf("") }
@@ -47,7 +46,6 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                     imageUrl = imageUrl,
                     userRating = userRating,
                     dateAdded = Calendar.getInstance().time.toString(),
-                    review = review,
                     totalPages = totalPages,
                     pagesRead = pagesRead,
                     genre = genre,
@@ -55,9 +53,8 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                     authorBio = authorBio,
                     userReview = userReview
                 )
-                val currentBooks = BookStorageManager.loadBooks(context)
-                currentBooks.add(newBook)
-                BookStorageManager.saveBooks(context, currentBooks)
+                books.add(newBook)
+                BookStorageManager.saveBooks(context, books)
 
                 navController.navigate("home") {
                     popUpTo("home") { inclusive = true }
@@ -121,8 +118,8 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
                         OutlinedTextField(
-                            value = review,
-                            onValueChange = { review = it },
+                            value = userReview,
+                            onValueChange = { userReview = it },
                             label = { Text("Enter your review...") },
                             modifier = Modifier.fillMaxWidth().padding(16.dp),
                             maxLines = 3

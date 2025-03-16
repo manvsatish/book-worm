@@ -8,7 +8,6 @@ data class Book(
     var imageUrl: String,
     var userRating: Float,
     val dateAdded: String,
-    var review: String,
     var totalPages: Int,
     var pagesRead: Int,
     var genre: String,
