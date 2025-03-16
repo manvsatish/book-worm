@@ -182,7 +182,7 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp, vertical = 4.dp), // Reduced vertical padding
-                            shape = RoundedCornerShape(6.dp), // Less rounded corners
+                            shape = RoundedCornerShape(8.dp), // Less rounded corners
                             colors = ButtonDefaults.outlinedButtonColors(
                                 containerColor = MaterialTheme.colorScheme.onPrimary,
                                 contentColor = MaterialTheme.colorScheme.primary
@@ -195,7 +195,7 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .padding(horizontal = 16.dp, vertical = 4.dp), // Reduced vertical padding
-                            shape = RoundedCornerShape(6.dp), // Less rounded corners
+                            shape = RoundedCornerShape(8.dp), // Less rounded corners
                             colors = ButtonDefaults.outlinedButtonColors(
                                 containerColor = Color.Red,
                                 contentColor = Color.White

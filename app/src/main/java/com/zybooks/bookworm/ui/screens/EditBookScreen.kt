@@ -188,7 +188,7 @@ fun EditBookScreen(
                             OutlinedButton(
                                 onClick = { updateBook() },
                                 modifier = Modifier.weight(1f),
-                                shape = RoundedCornerShape(6.dp), // less rounded
+                                shape = RoundedCornerShape(8.dp), // less rounded
                                 colors = ButtonDefaults.outlinedButtonColors(
                                     containerColor = MaterialTheme.colorScheme.onPrimary,
                                     contentColor = MaterialTheme.colorScheme.primary
@@ -199,7 +199,7 @@ fun EditBookScreen(
                             OutlinedButton(
                                 onClick = { navController.popBackStack() },
                                 modifier = Modifier.weight(1f),
-                                shape = RoundedCornerShape(6.dp), // less rounded
+                                shape = RoundedCornerShape(8.dp), // less rounded
                                 colors = ButtonDefaults.outlinedButtonColors(
                                     containerColor = Color.Red,
                                     contentColor = Color.White
