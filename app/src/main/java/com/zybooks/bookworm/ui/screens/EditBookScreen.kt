@@ -194,7 +194,7 @@ fun EditBookScreen(
                                     contentColor = MaterialTheme.colorScheme.primary
                                 )
                             ) {
-                                Text("Save")
+                                Text("Save", style = MaterialTheme.typography.labelSmall)
                             }
                             OutlinedButton(
                                 onClick = { navController.popBackStack() },
@@ -205,7 +205,7 @@ fun EditBookScreen(
                                     contentColor = Color.White
                                 )
                             ) {
-                                Text("Cancel")
+                                Text("Cancel", style = MaterialTheme.typography.labelSmall)
                             }
                         }
                     }
