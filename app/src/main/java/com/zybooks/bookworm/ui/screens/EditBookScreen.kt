@@ -3,27 +3,19 @@ package com.zybooks.bookworm.ui.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
-import androidx.compose.material.icons.filled.Star
-import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.zybooks.bookworm.Book
 import com.zybooks.bookworm.storage.BookStorageManager
 import com.zybooks.bookworm.ui.theme.BookwormTheme
 import com.zybooks.bookworm.ui.viewmodel.ThemeViewModel
 import kotlin.math.roundToInt
-import java.util.Calendar
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
