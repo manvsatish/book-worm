@@ -172,13 +172,15 @@ fun EditBookScreen(
                         )
 
                         Row(
-                            horizontalArrangement = Arrangement.SpaceEvenly,
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(16.dp)
+                                .padding(horizontal = 16.dp, vertical = 4.dp), // reduced vertical padding
+                            horizontalArrangement = Arrangement.spacedBy(4.dp) // space between the buttons
                         ) {
                             OutlinedButton(
                                 onClick = { updateBook() },
+                                modifier = Modifier.weight(1f),
+                                shape = RoundedCornerShape(8.dp), // less rounded
                                 colors = ButtonDefaults.outlinedButtonColors(
                                     containerColor = MaterialTheme.colorScheme.onPrimary,
                                     contentColor = MaterialTheme.colorScheme.primary
@@ -188,6 +190,8 @@ fun EditBookScreen(
                             }
                             OutlinedButton(
                                 onClick = { navController.popBackStack() },
+                                modifier = Modifier.weight(1f),
+                                shape = RoundedCornerShape(8.dp), // less rounded
                                 colors = ButtonDefaults.outlinedButtonColors(
                                     containerColor = Color.Red,
                                     contentColor = Color.White
