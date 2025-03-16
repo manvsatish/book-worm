@@ -38,6 +38,8 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -52,19 +54,25 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import kotlinx.coroutines.Dispatchers
 import com.zybooks.bookworm.Book
+import com.zybooks.bookworm.storage.BookStorageManager
 
 
-@OptIn(ExperimentalMaterial3Api::class) // Opt-in to experimental Material3 API
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            // Load books from file and create a mutable state list.
+            val books = remember {
+                mutableStateListOf<Book>().apply {
+                    addAll(BookStorageManager.loadBooks(this@MainActivity))
+                }
+            }
             val navController = rememberNavController()
-            NavGraph(navController = navController)
+            // Pass the same state list to the NavGraph.
+            NavGraph(navController = navController, books = books)
         }
     }
 }
-
 
 private val DarkColorScheme = darkColorScheme(
     primary = Color.Black,
@@ -89,7 +97,7 @@ private val LightColorScheme = lightColorScheme(
 )
 
 @Composable
-fun BookwormApp(navController: NavHostController) {
+fun BookwormApp(books: MutableList<Book>, navController: NavHostController) {
     val sortedBooks = sampleBooks.sortedWith(
         compareByDescending<Book> { it.userRating }
             .thenByDescending { it.dateAdded }
@@ -103,11 +111,14 @@ fun BookwormApp(navController: NavHostController) {
             content = { paddingValues ->
                 Column(modifier = Modifier.padding(paddingValues).padding(top = 0.dp)) {
                     TopBooksHeader(topBooks = topBooks, userName = "Ken", onBookClick = { id ->
+                        Log.d("BookwormApp", "Navigating to details of book ID: $id")
                         navController.navigate("bookDetailsScreen1/$id")
                     })
                     BookGrid(
-                        books = sortedBooks,
-                        onBookClick = { bookId -> navController.navigate("bookDetailsScreen1/$bookId") }
+                        books = books,
+                        onBookClick = { bookId ->
+                            Log.d("BookGrid", "Book item clicked with ID: $bookId")
+                            navController.navigate("bookDetailsScreen1/$bookId") }
                     )
                 }
             }
@@ -220,6 +231,8 @@ fun BookItem(book: Book, onClick: () -> Unit) {
             AsyncImage(
                 model = book.imageUrl,
                 contentDescription = "Book Cover",
+                placeholder = painterResource(id = R.drawable.placeholder_cover), // Local drawable for placeholder
+                error = painterResource(id = R.drawable.ic_broken_image),
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.fillMaxSize()
             )
@@ -241,14 +254,14 @@ fun BookItem(book: Book, onClick: () -> Unit) {
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun PreviewBookwormApp() {
-    BookwormTheme {
-        val navController = rememberNavController()
-        BookwormApp(navController)
-    }
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun PreviewBookwormApp() {
+//    BookwormTheme {
+//        val navController = rememberNavController()
+//        BookwormApp(navController)
+//    }
+//}
 
 @Composable
 fun TopBooksHeader(topBooks: List<Book>, userName: String, onBookClick: (Int) -> Unit) {
@@ -300,10 +313,10 @@ fun TopBookItem(book: Book, onClick: () -> Unit) {
             AsyncImage(
                 model = book.imageUrl,
                 contentDescription = "Book Cover",
+                placeholder = painterResource(id = R.drawable.placeholder_cover), // Local drawable for placeholder
+                error = painterResource(id = R.drawable.ic_broken_image),
                 contentScale = ContentScale.Fit,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(0.85f)
+                modifier = Modifier.fillMaxSize()
             )
         }
         Spacer(modifier = Modifier.height(4.dp))

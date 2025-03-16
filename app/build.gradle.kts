@@ -60,6 +60,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
     implementation("androidx.datastore:datastore-preferences:1.0.0")
     implementation("androidx.datastore:datastore-core:1.0.0")
+    implementation("com.google.code.gson:gson:2.8.9")
 
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.navigation.runtime.android)

@@ -26,19 +26,25 @@ import com.zybooks.bookworm.R
 import com.zybooks.bookworm.sampleBooks
 import androidx.compose.material3.Text
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import com.zybooks.bookworm.Book
+import com.zybooks.bookworm.storage.BookStorageManager
 import com.zybooks.bookworm.ui.theme.BookwormTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
     BookwormTheme {
-        val book = sampleBooks.find { it.id == bookId }
+        val context = LocalContext.current
+        // Load the books from file (including any changes made)
+        val books = BookStorageManager.loadBooks(context)
+        // Find the book with the matching ID.
+        val book = books.find { it.id == bookId }
 
         if (book != null) {
             val booksByAuthor = getBooksByAuthor(sampleBooks, book)

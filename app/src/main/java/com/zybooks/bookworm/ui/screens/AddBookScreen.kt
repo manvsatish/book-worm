@@ -1,5 +1,7 @@
 package com.zybooks.bookworm.ui.screens
 
+import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -7,19 +9,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.zybooks.bookworm.Book
-import com.zybooks.bookworm.R
-import com.zybooks.bookworm.sampleBooks
-import kotlin.math.roundToInt
-import java.util.Calendar
-import android.util.Log
-import androidx.compose.foundation.lazy.LazyColumn
 import com.zybooks.bookworm.ui.theme.BookwormTheme
+import java.util.Calendar
+import kotlin.math.roundToInt
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.ui.platform.LocalContext
+import com.zybooks.bookworm.storage.BookStorageManager
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddBookScreen(navController: NavHostController) {
+    val context = LocalContext.current  // Get the current context using Compose
     BookwormTheme {
-        // State to hold the input values
         var title by remember { mutableStateOf("") }
         var author by remember { mutableStateOf("") }
         var imageUrl by remember { mutableStateOf("") }
@@ -32,41 +33,30 @@ fun AddBookScreen(navController: NavHostController) {
         var authorBio by remember { mutableStateOf("") }
         var userReview by remember { mutableStateOf("") }
 
-
         fun addBook() {
-            Log.d(
-                "AddBookScreen",
-                "Attempting to add book: Title = $title, Author = $author, Image URL = $imageUrl"
-            )
-
-            val finalImageUrl =
-                if (imageUrl.isNotEmpty()) imageUrl else "https://cotsen.org/wp-content/uploads/2019/07/placeholder.jpg"
-
             if (title.isNotEmpty() && author.isNotEmpty() && imageUrl.isNotEmpty()) {
-                // Add the new book to the list (you might need to update your `sampleBooks` list here)
                 val newBook = Book(
-                    id = sampleBooks.size,  // Assuming unique ID is based on the list size
+                    id = BookStorageManager.loadBooks(context).size,
                     title = title,
                     author = author,
-                    imageUrl = finalImageUrl, // Convert string to a valid resource ID if needed
+                    imageUrl = imageUrl,
                     userRating = userRating,
-                    dateAdded = Calendar.getInstance().time.toString(), // For example, use the current date
-                    review = review, // Add review
+                    dateAdded = Calendar.getInstance().time.toString(),
+                    review = review,
                     totalPages = totalPages,
                     pagesRead = pagesRead,
                     genre = genre,
                     description = description,
-                    authorBio = authorBio,// Add pages read,
+                    authorBio = authorBio,
                     userReview = userReview
                 )
-                sampleBooks.add(newBook)
-                Log.d("AddBookScreen", "Book added: $newBook")
-                Log.d("AddBookScreen", "Navigating back to home screen")
+                val currentBooks = BookStorageManager.loadBooks(context)
+                currentBooks.add(newBook)
+                BookStorageManager.saveBooks(context, currentBooks)
 
                 navController.navigate("home") {
                     popUpTo("home") { inclusive = true }
                 }
-
             } else {
                 Log.d("AddBookScreen", "Required fields are empty")
             }
@@ -116,23 +106,15 @@ fun AddBookScreen(navController: NavHostController) {
                         )
                     }
                     item {
-                        Text(
-                            text = "Your Review:",
-                            modifier = Modifier.padding(horizontal = 16.dp)
-                        )
                         TextField(
                             value = review,
                             onValueChange = { review = it },
-                            label = { Text("Enter your review...") },
+                            label = { Text("Review") },
                             modifier = Modifier.fillMaxWidth().padding(16.dp),
                             maxLines = 3
                         )
                     }
                     item {
-                        Text(
-                            text = "How many pages does this book have?",
-                            modifier = Modifier.padding(horizontal = 16.dp)
-                        )
                         TextField(
                             value = totalPages.toString(),
                             onValueChange = { totalPages = it.toIntOrNull() ?: 0 },
@@ -141,10 +123,6 @@ fun AddBookScreen(navController: NavHostController) {
                         )
                     }
                     item {
-                        Text(
-                            text = "Pages Read: $pagesRead / $totalPages",
-                            modifier = Modifier.padding(horizontal = 16.dp)
-                        )
                         Slider(
                             value = pagesRead.toFloat(),
                             onValueChange = { pagesRead = it.roundToInt() },

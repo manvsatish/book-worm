@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.zybooks.bookworm.Book
 import com.zybooks.bookworm.ui.screens.BookDetailsScreen1
 import com.zybooks.bookworm.ui.screens.BookDetailsScreen2
 import com.zybooks.bookworm.BookwormApp
@@ -14,9 +15,9 @@ import com.zybooks.bookworm.ui.screens.AddBookScreen
 import com.zybooks.bookworm.ui.screens.SettingsScreen
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(navController: NavHostController, books: MutableList<Book>) {
     NavHost(navController = navController, startDestination = "home") {
-        composable("home") { BookwormApp(navController) }
+        composable("home") { BookwormApp(books, navController) }
         composable("addBook") { AddBookScreen(navController) }
         composable("settings") { SettingsScreen(navController) }
         composable(

@@ -11,18 +11,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.zybooks.bookworm.sampleBooks
+import com.zybooks.bookworm.storage.BookStorageManager
 import com.zybooks.bookworm.ui.theme.BookwormTheme
 
 @Composable
 fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
     BookwormTheme {
-        val book = sampleBooks.find { it.id == bookId }
+        val context = LocalContext.current
+        // Load the books from file (including any changes made)
+        val books = BookStorageManager.loadBooks(context)
+        // Find the book with the matching ID.
+        val book = books.find { it.id == bookId }
 
         if (book != null) {
             Scaffold(
