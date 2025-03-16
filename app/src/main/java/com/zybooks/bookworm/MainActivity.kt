@@ -82,7 +82,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun BookwormApp(books: MutableList<Book>, navController: NavHostController, themeViewModel: ThemeViewModel) {
-    val sortedBooks = sampleBooks.sortedWith(
+    val sortedBooks = books.sortedWith(
         compareByDescending<Book> { it.userRating }
             .thenByDescending { it.dateAdded }
     )

@@ -194,8 +194,8 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             onClick = { navController.popBackStack() },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 4.dp), // Reduced vertical padding
-                            shape = RoundedCornerShape(8.dp), // Less rounded corners
+                                .padding(horizontal = 16.dp, vertical = 4.dp),
+                            shape = RoundedCornerShape(8.dp),
                             colors = ButtonDefaults.outlinedButtonColors(
                                 containerColor = Color.Red,
                                 contentColor = Color.White
