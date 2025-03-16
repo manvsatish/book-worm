@@ -41,11 +41,13 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.draw.clip
+import androidx.compose.runtime.remember
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import coil.compose.AsyncImagePainter
 import coil.compose.SubcomposeAsyncImage
@@ -55,56 +57,38 @@ import coil.request.ImageRequest
 import kotlinx.coroutines.Dispatchers
 import com.zybooks.bookworm.Book
 import com.zybooks.bookworm.storage.BookStorageManager
+import com.zybooks.bookworm.ui.viewmodel.ThemeViewModel
 
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // Load books from file and create a mutable state list.
-            val books = remember {
-                mutableStateListOf<Book>().apply {
-                    addAll(BookStorageManager.loadBooks(this@MainActivity))
+            val themeViewModel: ThemeViewModel = viewModel(factory = ThemeViewModel.Factory)
+            BookwormTheme(themeViewModel = themeViewModel) {
+                // Load books from file and create a mutable state list.
+                val books = remember {
+                    mutableStateListOf<Book>().apply {
+                        addAll(BookStorageManager.loadBooks(this@MainActivity))
+                    }
                 }
+                val navController = rememberNavController()
+                // Pass the same state list to the NavGraph.
+                NavGraph(navController = navController, books = books, themeViewModel)
             }
-            val navController = rememberNavController()
-            // Pass the same state list to the NavGraph.
-            NavGraph(navController = navController, books = books)
         }
     }
 }
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Color.Black,
-    onPrimary = Color.White,
-    surface = Color.Black,
-    onSurface = Color.White,
-    background = Color.Black,
-    onBackground = Color.White,
-    error = Color.Red,
-    onError = Color.Black
-)
-
-private val LightColorScheme = lightColorScheme(
-    primary = Color.White,
-    onPrimary = Color.Black,
-    surface = Color.White,
-    onSurface = Color.Black,
-    background = Color.White,
-    onBackground = Color.Black,
-    error = Color.Red,
-    onError = Color.White
-)
-
 @Composable
-fun BookwormApp(books: MutableList<Book>, navController: NavHostController) {
+fun BookwormApp(books: MutableList<Book>, navController: NavHostController, themeViewModel: ThemeViewModel) {
     val sortedBooks = sampleBooks.sortedWith(
         compareByDescending<Book> { it.userRating }
             .thenByDescending { it.dateAdded }
     )
     val topBooks = sortedBooks.take(3)
 
-    BookwormTheme {
+    BookwormTheme(themeViewModel = themeViewModel) {
         Scaffold(
             topBar = { BookwormHeader(navController) },
             floatingActionButton = { FloatingActionButtons(navController) },
@@ -134,22 +118,13 @@ fun FloatingActionButtons(navController: NavHostController) {
     ) {
         FloatingActionButton(
             onClick = { navController.navigate("addBook") },
-            containerColor = Color.White,
-            contentColor = Color.Black
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier
+                .border(0.5.dp, MaterialTheme.colorScheme.onSurface, RoundedCornerShape(15))
         ) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
         }
-//
-//        Spacer(modifier = Modifier.width(16.dp))
-//
-//        FloatingActionButton(
-//            onClick = { navController.navigate("editBook")},
-//            containerColor = Color.White,
-//            contentColor = Color.Black
-//        )
-//        {
-//            Icon(imageVector = Icons.Filled.Edit, contentDescription = "Edit Book")
-//        }
     }
 }
 
@@ -167,7 +142,7 @@ fun BookwormHeader(navController: NavHostController) {
                     Text(
                         "BOOKWORM",
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
-                        color = Color.Black
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
 
                     IconButton(onClick = { navController.navigate("settings") }) {
@@ -180,11 +155,11 @@ fun BookwormHeader(navController: NavHostController) {
                 }
             },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.White
+                containerColor = MaterialTheme.colorScheme.surface
             ),
             modifier = Modifier
                 .height(64.dp) // Adjust the height if needed
-                .padding(bottom = 8.dp) // Adds padding at the bottom to push the AppBar content up
+                .padding(top = 8.dp, bottom = 8.dp) // Adds padding at the bottom to push the AppBar content up
         )
 
         Box(
@@ -192,7 +167,7 @@ fun BookwormHeader(navController: NavHostController) {
                 .align(Alignment.BottomCenter)
                 .width(380.dp)
                 .height(1.dp)
-                .background(Color.Black)
+                .background(MaterialTheme.colorScheme.onPrimary)
         )
     }
 }
@@ -289,7 +264,7 @@ fun TopBooksHeader(topBooks: List<Book>, userName: String, onBookClick: (Int) ->
         HorizontalDivider(
             modifier = Modifier.padding(top = 4.dp, bottom = 0.dp, start = 16.dp, end = 16.dp),
             thickness = 0.7.dp,
-            color = Color.Black
+            color = MaterialTheme.colorScheme.onPrimary
         )
     }
 }
