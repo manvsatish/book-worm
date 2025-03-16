@@ -12,33 +12,35 @@ import com.zybooks.bookworm.BookwormApp
 import com.zybooks.bookworm.ui.screens.EditBookScreen
 import com.zybooks.bookworm.ui.screens.AddBookScreen
 import com.zybooks.bookworm.ui.screens.SettingsScreen
+import com.zybooks.bookworm.ui.viewmodel.ThemeViewModel
 
 @Composable
-fun NavGraph(navController: NavHostController) {
+fun NavGraph(navController: NavHostController, themeViewModel: ThemeViewModel) {
     NavHost(navController = navController, startDestination = "home") {
-        composable("home") { BookwormApp(navController) }
-        composable("addBook") { AddBookScreen(navController) }
-        composable("settings") { SettingsScreen(navController) }
+        composable("home") { BookwormApp(navController, themeViewModel) }
+        composable("addBook") { AddBookScreen(navController, themeViewModel) }  // Updated
+        composable("settings") { SettingsScreen(navController, themeViewModel) }
         composable(
             "editBook/{bookId}",
             arguments = listOf(navArgument("bookId") { type = NavType.IntType })
         ) { backStackEntry ->
             val bookId = backStackEntry.arguments?.getInt("bookId") ?: -1
-            EditBookScreen(bookId, navController) }
+            EditBookScreen(bookId, navController, themeViewModel)  // Updated
+        }
         composable(
             "bookDetailsScreen1/{bookId}",
             arguments = listOf(navArgument("bookId") { type = NavType.IntType })
         ) { backStackEntry ->
             val bookId = backStackEntry.arguments?.getInt("bookId") ?: -1
-            BookDetailsScreen1(bookId, navController)
+            BookDetailsScreen1(bookId, navController, themeViewModel)  // Updated
         }
-        // Add a new composable for BookDetailsScreen2
         composable(
             "bookDetailsScreen2/{bookId}",
             arguments = listOf(navArgument("bookId") { type = NavType.IntType })
         ) { backStackEntry ->
             val bookId = backStackEntry.arguments?.getInt("bookId") ?: -1
-            BookDetailsScreen2(bookId, navController)
+            BookDetailsScreen2(bookId, navController, themeViewModel)  // Updated
         }
     }
 }
+

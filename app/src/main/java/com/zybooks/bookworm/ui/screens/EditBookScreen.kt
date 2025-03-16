@@ -7,14 +7,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.ui.graphics.Color
 import com.zybooks.bookworm.sampleBooks
 import com.zybooks.bookworm.ui.theme.BookwormTheme
+import com.zybooks.bookworm.ui.viewmodel.ThemeViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditBookScreen(bookId: Int, navController: NavHostController) {
-    BookwormTheme {
+fun EditBookScreen(bookId: Int, navController: NavHostController, themeViewModel: ThemeViewModel) {
+    BookwormTheme(themeViewModel = themeViewModel) {
         val book = sampleBooks.find { it.id == bookId }
 
         var title by remember { mutableStateOf(book?.title ?: "") }
@@ -56,8 +58,13 @@ fun EditBookScreen(bookId: Int, navController: NavHostController) {
                         value = rating,
                         onValueChange = { rating = it },
                         valueRange = 0f..5f,
-                        steps = 4,
-                        modifier = Modifier.fillMaxWidth()
+                        steps = 50,
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = SliderDefaults.colors(
+                            thumbColor = MaterialTheme.colorScheme.onPrimary, // Color for the thumb (draggable part)
+                            activeTrackColor = MaterialTheme.colorScheme.onPrimary, // Color for the active portion of the track
+                            inactiveTrackColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f) // Color for the inactive portion of the track
+                        )
                     )
 
                     Spacer(modifier = Modifier.height(8.dp))
@@ -77,19 +84,30 @@ fun EditBookScreen(bookId: Int, navController: NavHostController) {
                         horizontalArrangement = Arrangement.SpaceEvenly,
                         modifier = Modifier.fillMaxWidth()
                     ) {
-                        Button(onClick = {
+                        OutlinedButton(
+                            onClick = {
                             // Handle save logic (Update the book details)
-                            book?.let {
-                                it.title = title
-                                it.author = author
-                                it.userRating = rating
-                                it.imageUrl = imageUrl
-                            }
-                            navController.popBackStack()
-                        }) {
+                                book?.let {
+                                    it.title = title
+                                    it.author = author
+                                    it.userRating = rating
+                                    it.imageUrl = imageUrl
+                                }
+                                navController.popBackStack() },
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                containerColor = MaterialTheme.colorScheme.onPrimary,
+                                contentColor = MaterialTheme.colorScheme.primary
+                            )
+                        ) {
                             Text("Save")
                         }
-                        OutlinedButton(onClick = { navController.popBackStack() }) {
+                        OutlinedButton(
+                            onClick = { navController.popBackStack() },
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                containerColor = Color.Red, // Neutral background color for "Cancel"
+                                contentColor = Color.White // Red color for "Cancel" text
+                            )
+                        ) {
                             Text("Cancel")
                         }
                     }

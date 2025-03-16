@@ -7,18 +7,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.zybooks.bookworm.Book
-import com.zybooks.bookworm.R
 import com.zybooks.bookworm.sampleBooks
 import kotlin.math.roundToInt
 import java.util.Calendar
 import android.util.Log
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.ui.graphics.Color
 import com.zybooks.bookworm.ui.theme.BookwormTheme
+import com.zybooks.bookworm.ui.viewmodel.ThemeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddBookScreen(navController: NavHostController) {
-    BookwormTheme {
+fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewModel) {
+    BookwormTheme(themeViewModel = themeViewModel) {
         // State to hold the input values
         var title by remember { mutableStateOf("") }
         var author by remember { mutableStateOf("") }
@@ -77,9 +78,10 @@ fun AddBookScreen(navController: NavHostController) {
                 TopAppBar(title = { Text("Add a Book") })
             },
             content = { padding ->
+                //Column(modifier = Modifier.padding(padding).wrapContentHeight()) {
                 LazyColumn(modifier = Modifier.padding(padding)) {
                     item {
-                        TextField(
+                        OutlinedTextField(
                             value = title,
                             onValueChange = { title = it },
                             label = { Text("Title") },
@@ -87,7 +89,7 @@ fun AddBookScreen(navController: NavHostController) {
                         )
                     }
                     item {
-                        TextField(
+                        OutlinedTextField(
                             value = author,
                             onValueChange = { author = it },
                             label = { Text("Author") },
@@ -95,11 +97,11 @@ fun AddBookScreen(navController: NavHostController) {
                         )
                     }
                     item {
-                        TextField(
+                        OutlinedTextField(
                             value = imageUrl,
                             onValueChange = { imageUrl = it },
                             label = { Text("Image URL") },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp)
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
                         )
                     }
                     item {
@@ -108,7 +110,12 @@ fun AddBookScreen(navController: NavHostController) {
                             onValueChange = { userRating = (it * 10).roundToInt() / 10f },
                             valueRange = 0f..5f,
                             steps = 50,
-                            modifier = Modifier.padding(horizontal = 16.dp)
+                            modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
+                            colors = SliderDefaults.colors(
+                                thumbColor = MaterialTheme.colorScheme.onPrimary, // Color for the thumb (draggable part)
+                                activeTrackColor = MaterialTheme.colorScheme.onPrimary, // Color for the active portion of the track
+                                inactiveTrackColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f) // Color for the inactive portion of the track
+                            )
                         )
                         Text(
                             text = "Rating: $userRating",
@@ -120,7 +127,7 @@ fun AddBookScreen(navController: NavHostController) {
                             text = "Your Review:",
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
-                        TextField(
+                        OutlinedTextField(
                             value = review,
                             onValueChange = { review = it },
                             label = { Text("Enter your review...") },
@@ -133,7 +140,7 @@ fun AddBookScreen(navController: NavHostController) {
                             text = "How many pages does this book have?",
                             modifier = Modifier.padding(horizontal = 16.dp)
                         )
-                        TextField(
+                        OutlinedTextField(
                             value = totalPages.toString(),
                             onValueChange = { totalPages = it.toIntOrNull() ?: 0 },
                             label = { Text("Total Pages") },
@@ -150,37 +157,74 @@ fun AddBookScreen(navController: NavHostController) {
                             onValueChange = { pagesRead = it.roundToInt() },
                             valueRange = 0f..totalPages.toFloat(),
                             steps = if (totalPages == 0) 0 else totalPages - 1,
-                            modifier = Modifier.padding(horizontal = 16.dp)
+                            modifier = Modifier.padding(horizontal = 16.dp),
+                            colors = SliderDefaults.colors(
+                                thumbColor = MaterialTheme.colorScheme.onPrimary, // Color for the thumb (draggable part)
+                                activeTrackColor = MaterialTheme.colorScheme.onPrimary, // Color for the active portion of the track
+                                inactiveTrackColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f) // Color for the inactive portion of the track
+                            )
                         )
                     }
                     item {
-                        TextField(
+                        OutlinedTextField(
                             value = genre,
                             onValueChange = { genre = it },
                             label = { Text("Genre") },
                             modifier = Modifier.fillMaxWidth().padding(16.dp)
                         )
-                        TextField(
+                        OutlinedTextField(
                             value = description,
                             onValueChange = { description = it },
                             label = { Text("Description") },
                             modifier = Modifier.fillMaxWidth().padding(16.dp)
                         )
-                        TextField(
+                        OutlinedTextField(
                             value = authorBio,
                             onValueChange = { authorBio = it },
                             label = { Text("Author Bio") },
                             modifier = Modifier.fillMaxWidth().padding(16.dp)
                         )
                     }
-                    item {
-                        Button(
+                    item{
+                        OutlinedButton(
                             onClick = { addBook() },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp)
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                containerColor = MaterialTheme.colorScheme.onPrimary,
+                                contentColor = MaterialTheme.colorScheme.primary
+                            )
                         ) {
                             Text("Add Book")
                         }
+                        OutlinedButton(
+                            onClick = { navController.popBackStack() },
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                containerColor = Color.Red,
+                                contentColor = Color.White
+                            )
+                        ) {
+                            Text("Cancel")
+                        }
                     }
+                }
+
+                Row(
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    OutlinedButton(
+                        onClick = { addBook() },
+                        modifier = Modifier.fillMaxWidth().padding(16.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            containerColor = MaterialTheme.colorScheme.onPrimary,
+                            contentColor = MaterialTheme.colorScheme.primary
+                        )
+                    ) {
+                        Text("Add Book")
+                    }
+
+
                 }
             }
         )

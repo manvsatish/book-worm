@@ -1,6 +1,7 @@
 package com.zybooks.bookworm.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
@@ -25,31 +26,52 @@ import coil.compose.AsyncImage
 import com.zybooks.bookworm.R
 import com.zybooks.bookworm.sampleBooks
 import androidx.compose.material3.Text
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.sp
 import com.zybooks.bookworm.Book
 import com.zybooks.bookworm.ui.theme.BookwormTheme
+import com.zybooks.bookworm.ui.viewmodel.ThemeViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
-    BookwormTheme {
+fun BookDetailsScreen2(
+    bookId: Int,
+    navController: NavHostController,
+    themeViewModel: ThemeViewModel
+) {
+    BookwormTheme(themeViewModel = themeViewModel) {
         val book = sampleBooks.find { it.id == bookId }
 
         if (book != null) {
             val booksByAuthor = getBooksByAuthor(sampleBooks, book)
             Scaffold(
                 topBar = { BookwormBackHeader(navController) },
+                floatingActionButton = {
+                    val isDarkTheme by themeViewModel.isDarkTheme.collectAsState() // Collect the state
+
+                    FloatingActionButton(
+                        onClick = { navController.navigate("editBook/$bookId") },
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                        modifier = Modifier
+                            .border(0.5.dp, MaterialTheme.colorScheme.onSurface, RoundedCornerShape(15))
+                    ) {
+                        Icon(
+                            imageVector = Icons.Filled.Edit,
+                            contentDescription = "Edit Book",
+                            tint = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
+                },
                 content = { paddingValues ->
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(paddingValues)
                             .verticalScroll(rememberScrollState())
+                            .background(MaterialTheme.colorScheme.background)
                             .padding(16.dp),
                         horizontalAlignment = Alignment.Start
                     ) {
@@ -70,7 +92,8 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                             Column(modifier = Modifier.fillMaxWidth()) {
                                 Text(
                                     text = book.title,
-                                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Black)
+                                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.Black),
+                                    color = MaterialTheme.colorScheme.onBackground
                                 )
                                 Spacer(modifier = Modifier.height(8.dp))
 
@@ -79,7 +102,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                                     style = MaterialTheme.typography.bodyLarge
                                 )
 
-                                Spacer(modifier = Modifier.height(8.dp))
+                                Spacer(modifier = Modifier.height(16.dp))
 
                                 Row(verticalAlignment = Alignment.CenterVertically) {
                                     repeat(5) { index ->
@@ -88,7 +111,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                                         Icon(
                                             imageVector = starIcon,
                                             contentDescription = "Star Rating",
-                                            tint = MaterialTheme.colorScheme.primary,
+                                            tint = MaterialTheme.colorScheme.onPrimary,
                                             modifier = Modifier.size(24.dp)
                                         )
                                     }
@@ -100,7 +123,7 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                             }
                         }
 
-                        Spacer(modifier = Modifier.height(12.dp))
+                        Spacer(modifier = Modifier.height(8.dp))
 
                         Text(
                             text = "Genre | ${book.genre}",
@@ -133,30 +156,6 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
                             style = MaterialTheme.typography.bodyLarge
                         )
 
-                        Spacer(modifier = Modifier.height(15.dp))
-
-                        FloatingActionButton(
-                            onClick = { navController.navigate("editBook/$bookId") },
-                            containerColor = Color.White,
-                            contentColor = Color.Black
-                        )
-                        {
-                            Row(
-                                modifier = Modifier.wrapContentWidth()
-                                    .padding(start = 5.dp, end = 5.dp),
-                                horizontalArrangement = Arrangement.Center,
-                                verticalAlignment = Alignment.CenterVertically
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Filled.Edit,
-                                    contentDescription = "Edit Book"
-                                )
-                                Spacer(modifier = Modifier.height(2.5.dp))
-                                Spacer(modifier = Modifier.width(5.dp))
-                                Text("Edit details", style = MaterialTheme.typography.labelSmall)
-                            }
-                        }
-
                         Spacer(modifier = Modifier.height(20.dp))
 
                         // Placeholder for more novels from this author
@@ -181,16 +180,15 @@ fun BookDetailsScreen2(bookId: Int, navController: NavHostController) {
 
 @Composable
 fun HorizontalScrollableBookRow(books: List<Book>, navController: NavHostController) {
-    BookwormTheme {
-        Row(
-            modifier = Modifier.horizontalScroll(rememberScrollState())
-        ) {
-            for (book in books) {
-                BookCover(book, navController)
-            }
+    Row(
+        modifier = Modifier.horizontalScroll(rememberScrollState())
+    ) {
+        for (book in books) {
+            BookCover(book, navController)
         }
     }
 }
+
 
 @Composable
 fun BookCover(book: Book, navController: NavHostController) {
@@ -261,7 +259,7 @@ fun BookwormBackHeader(navController: NavHostController) {
                     Text(
                         "BOOKWORM",
                         style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
-                        color = Color.Black
+                        color = MaterialTheme.colorScheme.onPrimary
                     )
 
                     IconButton(onClick = {navController.navigate("settings") }) {
@@ -278,19 +276,16 @@ fun BookwormBackHeader(navController: NavHostController) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back",
-                        tint = Color.Black // Ensuring visibility against a white background
+                        tint = MaterialTheme.colorScheme.onPrimary // Ensuring visibility against a white background
                     )
                 }
             },
-//            actions = {
-//
-//            },
             colors = TopAppBarDefaults.topAppBarColors(
-                containerColor = Color.White
+                containerColor = MaterialTheme.colorScheme.surface
             ),
             modifier = Modifier
                 .height(64.dp) // Adjust the height if needed
-                .padding(bottom = 8.dp) // Adds padding at the bottom to push the AppBar content up
+                .padding(top = 8.dp, bottom = 8.dp) // Adds padding at the bottom to push the AppBar content up
         )
 
         Box(
@@ -298,7 +293,7 @@ fun BookwormBackHeader(navController: NavHostController) {
                 .align(Alignment.BottomCenter)
                 .width(380.dp) // Ensures the border spans the entire width of the screen
                 .height(1.dp)
-                .background(Color.Black)
+                .background(MaterialTheme.colorScheme.onPrimary)
         )
     }
 }

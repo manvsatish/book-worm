@@ -1,5 +1,6 @@
 package com.zybooks.bookworm.ui.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -18,10 +19,15 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.zybooks.bookworm.sampleBooks
 import com.zybooks.bookworm.ui.theme.BookwormTheme
+import com.zybooks.bookworm.ui.viewmodel.ThemeViewModel
 
 @Composable
-fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
-    BookwormTheme {
+fun BookDetailsScreen1(
+    bookId: Int,
+    navController: NavHostController,
+    themeViewModel: ThemeViewModel
+) {
+    BookwormTheme(themeViewModel = themeViewModel) {
         val book = sampleBooks.find { it.id == bookId }
 
         if (book != null) {
@@ -32,7 +38,8 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
                         modifier = Modifier
                             .fillMaxSize()
                             .padding(paddingValues)
-                            .padding(16.dp),
+                            .padding(16.dp)
+                            .background(MaterialTheme.colorScheme.background),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         AsyncImage(
@@ -74,7 +81,7 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
                                 Icon(
                                     imageVector = starIcon,
                                     contentDescription = "Star Rating",
-                                    tint = MaterialTheme.colorScheme.primary,
+                                    tint = MaterialTheme.colorScheme.onBackground,
                                     modifier = Modifier.size(24.dp)
                                 )
                             }
@@ -96,7 +103,11 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
                         Button(
                             onClick = { navController.navigate("BookDetailsScreen2/$bookId") },
                             shape = RoundedCornerShape(8.dp),
-                            modifier = Modifier.fillMaxWidth()
+                            modifier = Modifier.wrapContentWidth(),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MaterialTheme.colorScheme.onPrimary, // Set the background color of the button
+                                contentColor = MaterialTheme.colorScheme.primary // Set the color of the text and icon
+                            )
                         ) {
                             Text(
                                 text = "Show More",
@@ -113,7 +124,7 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
                 }
             )
         } else {
-            Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+            Column(modifier = Modifier.fillMaxSize().padding(16.dp).background(MaterialTheme.colorScheme.background)) {
                 Text(
                     "Book not found",
                     style = MaterialTheme.typography.bodyLarge,
