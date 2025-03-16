@@ -125,7 +125,7 @@ fun BookDetailsScreen2(
                                         )
                                     }
                                     Text(
-                                        text = "${book.userRating}/5",
+                                        text = "${"%.2f".format(book.userRating)}/5",
                                         style = MaterialTheme.typography.bodyLarge
                                     )
                                 }

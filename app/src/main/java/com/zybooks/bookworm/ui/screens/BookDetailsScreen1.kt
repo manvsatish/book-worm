@@ -93,7 +93,7 @@ fun BookDetailsScreen1(
                                 )
                             }
                             Spacer(modifier = Modifier.width(8.dp))
-                            Text(text = "${book.userRating}/5", fontSize = 16.sp)
+                            Text(text = "${"%.2f".format(book.userRating)}/5", fontSize = 16.sp)
                         }
 
                         Spacer(modifier = Modifier.height(16.dp))
