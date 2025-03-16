@@ -123,5 +123,3 @@ fun BookDetailsScreen1(bookId: Int, navController: NavHostController) {
         }
     }
 }
-
-

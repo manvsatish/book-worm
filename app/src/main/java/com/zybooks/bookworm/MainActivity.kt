@@ -50,8 +50,8 @@ import coil.compose.SubcomposeAsyncImage
 import coil.compose.SubcomposeAsyncImageContent
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.zybooks.bookworm.Book
 import kotlinx.coroutines.Dispatchers
+import com.zybooks.bookworm.Book
 
 
 @OptIn(ExperimentalMaterial3Api::class) // Opt-in to experimental Material3 API
@@ -366,21 +366,4 @@ val sampleBooks = mutableListOf(
     ),
     Book(id = 15, title = "Anna Karenina", author = "Leo Tolstoy", imageUrl = "https://m.media-amazon.com/images/I/31lAayxUeAL._SY445_SX342_.jpg", userRating = 1.0f, dateAdded = "2024-10-14", review = "A long, complex narrative about love and betrayal.", totalPages = 864, pagesRead = 250, genre = "Fiction, Romance, Russia, Historical Fiction, Russian Literature", description = "Acclaimed by many as the world's greatest novel, Anna Karenina provides a vast panorama of contemporary life in Russia and of humanity in general. In it Tolstoy uses his intense imaginative insight to create some of the most memorable characters in all of literature. Anna is a sophisticated woman who abandons her empty existence as the wife of Karenin and turns to Count Vronsky to fulfil her passionate nature - with tragic consequences. Levin is a reflection of Tolstoy himself, often expressing the author's own views and convictions.", authorBio = "Lev Nikolayevich Tolstoy (Russian: Лев Николаевич Толстой; most appropriately used Liev Tolstoy; commonly Leo Tolstoy in Anglophone countries) was a Russian writer who primarily wrote novels and short stories. Later in life, he also wrote plays and essays. His two most famous works, the novels War and Peace and Anna Karenina, are acknowledged as two of the greatest novels of all time and a pinnacle of realist fiction. Many consider Tolstoy to have been one of the world's greatest novelists. Tolstoy is equally known for his complicated and paradoxical persona and for his extreme moralistic and ascetic views, which he adopted after a moral crisis and spiritual awakening in the 1870s, after which he also became noted as a moral thinker and social reformer.", userReview = "Tolstoy's exploration of love, betrayal, and societal pressures in imperial Russia is both grand and intimate. Anna is a tragic figure that I couldn't help but empathize with, despite her flaws."
     )
-)
-
-// Book data class
-data class Book(
-    val id: Int,
-    var title: String,
-    var author: String,
-    var imageUrl: String,
-    var userRating: Float,
-    var dateAdded: String,
-    var review: String,
-    var totalPages: Int,
-    var pagesRead: Int,
-    val genre: String,
-    val description: String,
-    val authorBio: String,
-    val userReview: String
 )
