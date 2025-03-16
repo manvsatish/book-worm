@@ -200,7 +200,7 @@ fun BookCover(book: Book, navController: NavHostController) {
                 .size(120.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .clickable {
-                    navController.navigate("bookDetails/${book.id}") // Assuming book details screen can be navigated with the book ID
+                    navController.navigate("bookDetailsScreen1/${book.id}")
                 }
         )
         Spacer(modifier = Modifier.height(8.dp))

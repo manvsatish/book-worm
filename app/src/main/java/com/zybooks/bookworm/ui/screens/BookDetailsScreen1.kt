@@ -134,5 +134,3 @@ fun BookDetailsScreen1(
         }
     }
 }
-
-
