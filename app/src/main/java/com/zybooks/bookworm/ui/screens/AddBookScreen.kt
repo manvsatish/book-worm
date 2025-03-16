@@ -76,7 +76,11 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             value = title,
                             onValueChange = { title = it },
                             label = { Text("Title") },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp)
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                     }
                     item {
@@ -84,7 +88,11 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             value = author,
                             onValueChange = { author = it },
                             label = { Text("Author") },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp)
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                     }
                     item {
@@ -93,6 +101,10 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             onValueChange = { imageUrl = it },
                             label = { Text("Image URL") },
                             modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                     }
                     item {
@@ -123,7 +135,11 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             onValueChange = { userReview = it },
                             label = { Text("Enter your review...") },
                             modifier = Modifier.fillMaxWidth().padding(16.dp),
-                            maxLines = 3
+                            maxLines = 3,
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                     }
                     item {
@@ -135,7 +151,11 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             value = totalPages.toString(),
                             onValueChange = { totalPages = it.toIntOrNull() ?: 0 },
                             label = { Text("Total Pages") },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp)
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                     }
                     item {
@@ -161,19 +181,31 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                             value = genre,
                             onValueChange = { genre = it },
                             label = { Text("Genre") },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp)
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                         OutlinedTextField(
                             value = description,
                             onValueChange = { description = it },
                             label = { Text("Description") },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp)
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                         OutlinedTextField(
                             value = authorBio,
                             onValueChange = { authorBio = it },
                             label = { Text("Author Bio") },
-                            modifier = Modifier.fillMaxWidth().padding(16.dp)
+                            modifier = Modifier.fillMaxWidth().padding(16.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                     }
                     item {

@@ -2,6 +2,7 @@ package com.zybooks.bookworm.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -82,7 +83,11 @@ fun EditBookScreen(
                             label = { Text("Title") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                         OutlinedTextField(
                             value = author,
@@ -90,7 +95,11 @@ fun EditBookScreen(
                             label = { Text("Author") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                         OutlinedTextField(
                             value = imageUrl,
@@ -98,7 +107,11 @@ fun EditBookScreen(
                             label = { Text("Image URL") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                         Text("Rating", modifier = Modifier.padding(8.dp))
                         Slider(
@@ -121,7 +134,11 @@ fun EditBookScreen(
                             label = { Text("Total Pages") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                         Text("Pages Read: $pagesRead / $totalPages", modifier = Modifier.padding(8.dp))
                         Slider(
@@ -144,7 +161,11 @@ fun EditBookScreen(
                             label = { Text("Genre") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                         OutlinedTextField(
                             value = description,
@@ -152,7 +173,11 @@ fun EditBookScreen(
                             label = { Text("Description") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                         OutlinedTextField(
                             value = authorBio,
@@ -160,7 +185,11 @@ fun EditBookScreen(
                             label = { Text("Author Bio") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
                         OutlinedTextField(
                             value = userReview,
@@ -168,7 +197,11 @@ fun EditBookScreen(
                             label = { Text("User Review") },
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .padding(8.dp)
+                                .padding(8.dp),
+                            colors = TextFieldDefaults.outlinedTextFieldColors(
+                                focusedBorderColor = MaterialTheme.colorScheme.onPrimary,
+                                unfocusedBorderColor = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.5f)
+                            )
                         )
 
                         Row(

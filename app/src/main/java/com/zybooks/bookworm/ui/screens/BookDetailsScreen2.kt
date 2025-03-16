@@ -62,15 +62,15 @@ fun BookDetailsScreen2(
 
                     FloatingActionButton(
                         onClick = { navController.navigate("editBook/$bookId") },
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary,
+                        containerColor = MaterialTheme.colorScheme.onPrimary,
+                        contentColor = MaterialTheme.colorScheme.primary,
                         modifier = Modifier
-                            .border(0.5.dp, MaterialTheme.colorScheme.onSurface, RoundedCornerShape(15))
+                            .border(0.5.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(15))
                     ) {
                         Icon(
                             imageVector = Icons.Filled.Edit,
                             contentDescription = "Edit Book",
-                            tint = MaterialTheme.colorScheme.onPrimary
+                            tint = MaterialTheme.colorScheme.primary
                         )
                     }
                 },
