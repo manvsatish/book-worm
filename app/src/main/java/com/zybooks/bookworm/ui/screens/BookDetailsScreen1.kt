@@ -1,6 +1,7 @@
 package com.zybooks.bookworm.ui.screens
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -103,6 +104,43 @@ fun BookDetailsScreen1(
                             textAlign = TextAlign.Center,
                             modifier = Modifier.align(Alignment.CenterHorizontally)
                         )
+
+                        Spacer(modifier = Modifier.height(16.dp))
+
+
+                        val progressFraction = if (book.totalPages > 0) {
+                            book.pagesRead.toFloat() / book.totalPages.toFloat()
+                        } else {
+                            0f
+                        }
+                        Text(
+                            text = "Progress: ${book.pagesRead} / ${book.totalPages}",
+                            style = MaterialTheme.typography.titleMedium,
+                            modifier = Modifier.align(Alignment.CenterHorizontally)
+                        )
+
+                        Spacer(modifier = Modifier.height(8.dp))
+
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            LinearProgressIndicator(
+                                progress = { progressFraction },
+                                modifier = Modifier
+                                    .width(200.dp)
+                                    .height(16.dp)
+                                    .border(
+                                        width = 1.dp,
+                                        color = MaterialTheme.colorScheme.onBackground,
+                                        shape = RoundedCornerShape(4.dp)
+                                    )
+                                    .clip(RoundedCornerShape(4.dp)),
+                                color = MaterialTheme.colorScheme.onBackground,
+                                trackColor = MaterialTheme.colorScheme.background,
+                            )
+
+                        }
 
                         Spacer(modifier = Modifier.height(16.dp))
 
