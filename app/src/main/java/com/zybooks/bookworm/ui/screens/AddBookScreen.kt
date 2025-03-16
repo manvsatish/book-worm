@@ -220,7 +220,7 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                                 contentColor = MaterialTheme.colorScheme.primary
                             )
                         ) {
-                            Text("Add Book")
+                            Text("Add Book", style = MaterialTheme.typography.labelSmall)
                         }
                         OutlinedButton(
                             onClick = { navController.popBackStack() },
@@ -233,7 +233,7 @@ fun AddBookScreen(navController: NavHostController, themeViewModel: ThemeViewMod
                                 contentColor = Color.White
                             )
                         ) {
-                            Text("Cancel")
+                            Text("Cancel", style = MaterialTheme.typography.labelSmall)
                         }
                     }
 
