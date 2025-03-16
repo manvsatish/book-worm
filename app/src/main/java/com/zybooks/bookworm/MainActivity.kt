@@ -118,10 +118,10 @@ fun FloatingActionButtons(navController: NavHostController) {
     ) {
         FloatingActionButton(
             onClick = { navController.navigate("addBook") },
-            containerColor = MaterialTheme.colorScheme.primary,
-            contentColor = MaterialTheme.colorScheme.onPrimary,
+            containerColor = MaterialTheme.colorScheme.onPrimary,
+            contentColor = MaterialTheme.colorScheme.primary,
             modifier = Modifier
-                .border(0.5.dp, MaterialTheme.colorScheme.onSurface, RoundedCornerShape(15))
+                .border(0.5.dp, MaterialTheme.colorScheme.primary, RoundedCornerShape(15))
         ) {
             Icon(imageVector = Icons.Filled.Add, contentDescription = "Add Book")
         }
